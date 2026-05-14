@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  web-backend:
+    build: ./app/backend
+    container_name: devop1-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+      - DATABASE_NAME=${DB_NAME}
+    depends_on:
+      - db
+    networks:
+      - devop1-network
+
+  db:
+    image: mysql:8.0
+    container_name: devop1-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - [cite_start]./database/scripts:/docker-entrypoint-initdb.d # Auto-runs initialization scripts [cite: 111]
+    networks:
+      - devop1-network
+
+volumes:
+  [cite_start]db_data: # Configures volume mounts for persistent data storage [cite: 109]
+
+networks:
+  [cite_start]devop1-network: # Configures network for docker [cite: 52]
+    driver: bridge

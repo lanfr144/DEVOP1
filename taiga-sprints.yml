@@ -1,0 +1,49 @@
+sprints:
+  - name: "Sprint 1: Infrastructure & Version Control Foundations"
+    user_stories:
+      - title: "As a team, we need an Agile management platform to track sprints and progress."
+        tasks:
+          - "Configure custom boards and workflows in Taiga."
+          - "Link Taiga directly to the GitHub repository for code tracking."
+      - title: "As developers, we need a Git repository initialized with a standard branching strategy."
+        tasks:
+          - "Create README.md with Git documentation and cheat sheet."
+          - "Create at least 3 active feature branches for initial modules."
+
+  - name: "Sprint 2: Docker Environment & Database Configuration"
+    user_stories:
+      - title: "As a developer, I need a scalable virtualization infrastructure using Docker."
+        tasks:
+          - "Write Dockerfiles for backend, frontend, and Zabbix components."
+          - "Develop docker-compose.yml defining services, volumes, and networks."
+      - title: "As a data owner, I need a containerized MySQL database."
+        tasks:
+          - "Spin up MySQL with volume mounts for persistent data storage."
+          - "Use a Python script with SQLAlchemy to connect to MySQL and load data."
+
+  - name: "Sprint 3: Web App Deployment & Real-Time Monitoring"
+    user_stories:
+      - title: "As a user, I want a functional, containerized web application."
+        tasks:
+          - "Build basic frontend and backend components."
+          - "Configure .env file to manage secrets dynamically."
+      - title: "As an admin, I need a Dockerized Grafana stack to visualize system health."
+        tasks:
+          - "Configure services for Grafana, Prometheus, and InfluxDB in Docker Compose."
+          - "Design three dashboards displaying system metrics and database performance."
+          - "Set up alert notifications via Teams/Slack."
+
+  - name: "Sprint 4: CI/CD Pipelines & Kubernetes Orchestration"
+    user_stories:
+      - title: "As a DevOps engineer, I need Jenkins deployed on Kubernetes."
+        tasks:
+          - "Provision the local or cloud Kubernetes cluster."
+          - "Set up the Jenkins master using the Kubernetes plugin."
+          - "Create declarative Jenkinsfiles to pull code, run tests, and build Docker images."
+
+  - name: "Sprint 5: Testing, Validation, & Presentation Prep"
+    user_stories:
+      - title: "As a team, we need to finalize the project for submission by June 24, 2026."
+        tasks:
+          - "Conduct thorough testing to identify and resolve bugs."
+          - "Prepare the 30-minute presentation covering timeline, architecture, and live demo."
