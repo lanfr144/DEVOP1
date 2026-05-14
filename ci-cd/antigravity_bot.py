@@ -1,27 +1,109 @@
-# ci-cd/antigravity_bot.py
-import requests
 import os
+import argparse
+import requests
+import yaml
+import sys
 
+# Taiga API Configuration
 TAIGA_API_URL = "https://api.taiga.io/api/v1"
-# We will pass these via the .env file later
-TAIGA_AUTH_TOKEN = os.getenv("TAIGA_AUTH_TOKEN") 
-TEAMS_WEBHOOK_URL = os.getenv("TEAMS_WEBHOOK_URL")
+TAIGA_USERNAME = os.getenv("TAIGA_USERNAME")
+TAIGA_PASSWORD = os.getenv("TAIGA_PASSWORD")
+PROJECT_ID = os.getenv("TAIGA_PROJECT_ID")
 
-def get_taiga_tasks(project_id):
-    """Query Taiga for current tasks."""
-    headers = {"Authorization": f"Bearer {TAIGA_AUTH_TOKEN}"}
-    response = requests.get(f"{TAIGA_API_URL}/tasks?project={project_id}", headers=headers)
-    return response.json()
+def authenticate_taiga():
+    """Authenticates with Taiga using Username/Password and returns the auth token."""
+    print("🔐 Authenticating with Taiga...")
+    payload = {
+        "type": "normal",
+        "username": TAIGA_USERNAME,
+        "password": TAIGA_PASSWORD
+    }
+    
+    try:
+        response = requests.post(f"{TAIGA_API_URL}/auth", json=payload)
+        response.raise_for_status()
+        token = response.json().get("auth_token")
+        print("✅ Authentication successful!")
+        return token
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Authentication failed: {e}")
+        sys.exit(1)
 
-def notify_team(message):
-    """Inform developers about changes (e.g., via Teams or Slack)."""
-    # The project requires components to trigger actions and alerts [cite: 65, 187]
-    payload = {"text": f"🚀 Antigravity Update: {message}"}
-    requests.post(TEAMS_WEBHOOK_URL, json=payload)
-    print("Team notified!")
+def get_headers(token):
+    """Returns the authorization headers needed for API calls."""
+    return {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+
+def create_taiga_milestone(name, headers):
+    """Creates a Sprint (Milestone) in Taiga."""
+    payload = {
+        "name": name,
+        "project": PROJECT_ID,
+        "estimated_start": "2024-01-01", 
+        "estimated_finish": "2026-06-24"
+    }
+    response = requests.post(f"{TAIGA_API_URL}/milestones", json=payload, headers=headers)
+    response.raise_for_status()
+    return response.json()["id"]
+
+def create_taiga_user_story(title, milestone_id, headers):
+    """Creates a User Story and assigns it to a Sprint."""
+    payload = {
+        "subject": title,
+        "project": PROJECT_ID,
+        "milestone": milestone_id
+    }
+    response = requests.post(f"{TAIGA_API_URL}/userstories", json=payload, headers=headers)
+    response.raise_for_status()
+    return response.json()["id"]
+
+def create_taiga_task(subject, user_story_id, headers):
+    """Creates a Task under a specific User Story."""
+    payload = {
+        "subject": subject,
+        "project": PROJECT_ID,
+        "user_story": user_story_id
+    }
+    response = requests.post(f"{TAIGA_API_URL}/tasks", json=payload, headers=headers)
+    response.raise_for_status()
+    return response.json()["id"]
+
+def populate_taiga(yaml_file):
+    """Parses the YAML file and populates the Taiga project."""
+    print(f"🚀 Antigravity Sequence Initiated. Reading {yaml_file}...")
+    
+    # Get the token dynamically
+    token = authenticate_taiga()
+    headers = get_headers(token)
+    
+    with open(yaml_file, 'r') as file:
+        data = yaml.safe_load(file)
+        
+    for sprint in data.get('sprints', []):
+        print(f"\nCreating Sprint: {sprint['name']}")
+        milestone_id = create_taiga_milestone(sprint['name'], headers)
+        
+        for story in sprint.get('user_stories', []):
+            print(f"  -> Creating User Story: {story['title']}")
+            story_id = create_taiga_user_story(story['title'], milestone_id, headers)
+            
+            for task in story.get('tasks', []):
+                print(f"      -> Creating Task: {task}")
+                create_taiga_task(task, story_id, headers)
+
+    print("\n✅ Taiga population complete! All Sprints, Stories, and Tasks are live.")
 
 if __name__ == "__main__":
-    print("Antigravity sync initiated...")
-    # Example usage:
-    # tasks = get_taiga_tasks(project_id="YOUR_PROJECT_ID")
-    # notify_team("Developer environment updated. Please run `docker-compose pull`.")
+    parser = argparse.ArgumentParser(description="Antigravity DevOps Automation")
+    parser.add_argument("--populate", help="Path to the YAML file to populate Taiga", type=str)
+    args = parser.parse_args()
+
+    if args.populate:
+        if not TAIGA_USERNAME or not TAIGA_PASSWORD or not PROJECT_ID:
+            print("❌ Error: Missing TAIGA_USERNAME, TAIGA_PASSWORD, or TAIGA_PROJECT_ID in environment.")
+        else:
+            populate_taiga(args.populate)
+    else:
+        print("Antigravity engine idle. Use --populate <file.yml> to run.")
