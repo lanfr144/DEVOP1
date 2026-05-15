@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   web-backend:
     build: ./app/backend
@@ -29,13 +27,13 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - [cite_start]./database/scripts:/docker-entrypoint-initdb.d # Auto-runs initialization scripts [cite: 111]
+      - ./database/scripts:/docker-entrypoint-initdb.d # Auto-runs initialization scripts
     networks:
       - devop1-network
 
 volumes:
-  [cite_start]db_data: # Configures volume mounts for persistent data storage [cite: 109]
+  db_data: # Configures volume mounts for persistent data storage
 
 networks:
-  [cite_start]devop1-network: # Configures network for docker [cite: 52]
+  devop1-network: # Configures network for docker
     driver: bridge
