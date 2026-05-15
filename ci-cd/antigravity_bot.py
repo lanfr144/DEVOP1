@@ -45,6 +45,8 @@ def create_taiga_milestone(name, headers):
         "estimated_finish": "2026-06-24"
     }
     response = requests.post(f"{TAIGA_API_URL}/milestones", json=payload, headers=headers)
+    if not response.ok:
+        print(f"Taiga API Error: {response.text}")
     response.raise_for_status()
     return response.json()["id"]
 
