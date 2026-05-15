@@ -47,3 +47,16 @@ sprints:
         tasks:
           - "Conduct thorough testing to identify and resolve bugs."
           - "Prepare the 30-minute presentation covering timeline, architecture, and live demo."
+
+  - name: "Sprint 6: Automation & Advanced Scheduling"
+    user_stories:
+      - title: "As a DevOps engineer, I need robust automation and scheduling across the stack."
+        tasks:
+          - "Install and configure Apache Airflow in Docker Compose."
+          - "Ensure batch, cron, and at scheduling capabilities are available everywhere."
+          - "Implement automated log cleanup procedures."
+      - title: "As a team, we need enhanced communication and documentation."
+        tasks:
+          - "Integrate Discord webhook notifications."
+          - "Populate the Taiga Wiki with operational and architectural documentation."
+          - "Configure Git Webhooks in Taiga for commit tracking."

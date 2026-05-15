@@ -36,6 +36,21 @@ def get_headers(token):
         "Content-Type": "application/json"
     }
 
+def get_existing_milestones(headers):
+    response = requests.get(f"{TAIGA_API_URL}/milestones?project={PROJECT_ID}", headers=headers)
+    response.raise_for_status()
+    return {m["name"]: m["id"] for m in response.json()}
+
+def get_existing_user_stories(headers):
+    response = requests.get(f"{TAIGA_API_URL}/userstories?project={PROJECT_ID}", headers=headers)
+    response.raise_for_status()
+    return {us["subject"]: us["id"] for us in response.json()}
+
+def get_existing_tasks(headers):
+    response = requests.get(f"{TAIGA_API_URL}/tasks?project={PROJECT_ID}", headers=headers)
+    response.raise_for_status()
+    return {t["subject"]: t["id"] for t in response.json()}
+
 def create_taiga_milestone(name, headers):
     """Creates a Sprint (Milestone) in Taiga."""
     payload = {
@@ -73,31 +88,54 @@ def create_taiga_task(subject, user_story_id, headers):
     return response.json()["id"]
 
 def populate_taiga(yaml_file):
-    """Parses the YAML file and populates the Taiga project."""
+    """Parses the YAML file and populates the Taiga project idempotently."""
     print(f"🚀 Antigravity Sequence Initiated. Reading {yaml_file}...")
     
-    # Get the token dynamically
     token = authenticate_taiga()
     headers = get_headers(token)
     
-    with open(yaml_file, 'r') as file:
+    print("🔄 Fetching existing Taiga data to prevent duplicates...")
+    existing_milestones = get_existing_milestones(headers)
+    existing_stories = get_existing_user_stories(headers)
+    existing_tasks = get_existing_tasks(headers)
+    
+    with open(yaml_file, 'r', encoding='utf-8') as file:
         data = yaml.safe_load(file)
         
     for sprint in data.get('sprints', []):
-        print(f"\nCreating Sprint: {sprint['name']}")
-        milestone_id = create_taiga_milestone(sprint['name'], headers)
-        
-        for story in sprint.get('user_stories', []):
-            print(f"  -> Creating User Story: {story['title']}")
-            story_id = create_taiga_user_story(story['title'], milestone_id, headers)
+        name = sprint['name']
+        if name in existing_milestones:
+            print(f"\n⏭️  Skipping existing Sprint: {name}")
+            milestone_id = existing_milestones[name]
+        else:
+            print(f"\n🆕 Creating Sprint: {name}")
+            milestone_id = create_taiga_milestone(name, headers)
+            existing_milestones[name] = milestone_id
             
+        for story in sprint.get('user_stories', []):
+            title = story['title']
+            if title in existing_stories:
+                print(f"  -> ⏭️  Skipping existing User Story: {title}")
+                story_id = existing_stories[title]
+            else:
+                print(f"  -> 🆕 Creating User Story: {title}")
+                story_id = create_taiga_user_story(title, milestone_id, headers)
+                existing_stories[title] = story_id
+                
             for task in story.get('tasks', []):
-                print(f"      -> Creating Task: {task}")
-                create_taiga_task(task, story_id, headers)
+                if task in existing_tasks:
+                    print(f"      -> ⏭️  Skipping existing Task: {task}")
+                else:
+                    print(f"      -> 🆕 Creating Task: {task}")
+                    create_taiga_task(task, story_id, headers)
+                    existing_tasks[task] = True
 
     print("\n✅ Taiga population complete! All Sprints, Stories, and Tasks are live.")
 
 if __name__ == "__main__":
+    if sys.stdout.encoding.lower() != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
+
     parser = argparse.ArgumentParser(description="Antigravity DevOps Automation")
     parser.add_argument("--populate", help="Path to the YAML file to populate Taiga", type=str)
     args = parser.parse_args()
