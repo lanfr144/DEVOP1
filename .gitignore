@@ -8,3 +8,4 @@ documentation/
 .mylogin.cnf
 *.tar
 .env
+scratch/
