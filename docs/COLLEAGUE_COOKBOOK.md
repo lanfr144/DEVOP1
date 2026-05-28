@@ -92,6 +92,19 @@ To keep WSL distribution names generic and easy to manage, execute the following
    ```
    You can now access your repository in WSL via `cd ~/devop1`.
 
+4. **WSL Docker Permission Fix (Non-Root execution):**
+   If you receive a `permission denied` error when executing `docker` commands (such as `docker ps`) under your local WSL user, you must join the `docker` group inside WSL.
+   In Windows PowerShell, run the following to add your WSL user to the `docker` group and restart the instance:
+   ```powershell
+   # Add your WSL user to the docker group
+   wsl -d B1AI_DEVOP1 -u root bash -c "groupadd -f docker; usermod -aG docker YOUR_WSL_USER"
+   
+   # Restart the WSL distribution to apply group changes
+   wsl -t B1AI_DEVOP1
+   ```
+   *Note: On your next login via `wsl -d B1AI_DEVOP1`, you can run `docker ps` immediately under your own user context without root or `sudo`!*
+
+
 ---
 
 ## 🐳 Step 5: Start the Container Infrastructure

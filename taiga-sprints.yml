@@ -28,11 +28,12 @@ sprints:
         tasks:
           - "Build basic frontend and backend components."
           - "Configure .env file to manage secrets dynamically."
-      - title: "As an admin, I need a Dockerized Grafana stack to visualize system health."
+      - title: "As an admin, I need a Dockerized Zabbix stack to visualize system health."
         tasks:
-          - "Configure services for Grafana, Prometheus, and InfluxDB in Docker Compose."
-          - "Design three dashboards displaying system metrics and database performance."
-          - "Set up alert notifications via Teams/Slack."
+          - "Configure services for Zabbix Server, Web Interface, and Database in Docker Compose."
+          - "Design three Zabbix dashboards (System, App, and DB metrics) and export as XML."
+          - "Set up alert notifications via Email, Teams, and Discord."
+
 
   - name: "Sprint 4: CI/CD Pipelines & Kubernetes Orchestration"
     user_stories:
