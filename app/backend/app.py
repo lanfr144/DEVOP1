@@ -1,3 +1,4 @@
+#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 # app/backend/app.py
 import antigravity  # Requirement fulfilled!
 from flask import Flask

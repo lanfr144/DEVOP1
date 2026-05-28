@@ -1,3 +1,4 @@
+#ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 sprints:
   - name: "Sprint 1: Infrastructure & Version Control Foundations"
     user_stories:

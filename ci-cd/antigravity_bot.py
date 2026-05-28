@@ -1,8 +1,13 @@
+#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 import os
 import argparse
 import requests
 import yaml
 import sys
+from dotenv import load_dotenv
+
+# Load local environment configuration
+load_dotenv()
 
 # Taiga API Configuration
 TAIGA_API_URL = "https://api.taiga.io/api/v1"
