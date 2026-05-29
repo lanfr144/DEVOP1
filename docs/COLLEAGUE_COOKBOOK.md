@@ -13,7 +13,16 @@ Ensure your local machine has the following tools installed and active:
 * **Git** (Windows native client and/or inside WSL).
 * **Python 3.10+** (installed on both Windows and WSL).
 
+### 🔌 Recommended VS Code Extensions
+When you open this project in VS Code, you will see a prompt recommending the workspace extensions configured in `.vscode/extensions.json`. Installing these will significantly streamline your work:
+* **WSL Extension** (`ms-vscode-remote.remote-wsl`): Connects VS Code directly inside your WSL `B1AI_DEVOP1` environment.
+* **Docker Extension** (`ms-azuretools.vscode-containers`): Manages containers, logs, and compose services directly from the VS Code UI.
+* **YAML Extension** (`redhat.vscode-yaml`): Auto-validates and formats your `docker-compose.yml` and `taiga-sprints.yml`.
+* **SQLTools + MySQL Driver** (`mtxr.sqltools` & `mtxr.sqltools-driver-mysql`): Connects to and executes queries against the unified MySQL database on port `3317` directly within the editor.
+* **Python & Pylance** (`ms-python.python`): Native Python validation and syntax diagnostics for `git-ident-filter.py` and `antigravity_bot.py`.
+
 ---
+
 
 ## 🚀 Step-by-Step Environment Setup
 
