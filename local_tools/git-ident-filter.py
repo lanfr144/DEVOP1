@@ -1,10 +1,16 @@
 #!/usr/bin/env python
-#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+#ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 import sys
 import os
 import subprocess
 import re
 from datetime import datetime
+
+# Force LF-only line endings on Windows for stdin and stdout to prevent automatic CRLF translation
+if hasattr(sys.stdin, 'reconfigure'):
+    sys.stdin.reconfigure(newline='\n')
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(newline='\n')
 
 # Detect execution mode (clean or smudge) passed by Git
 mode = sys.argv[1] if len(sys.argv) > 1 else "smudge"
@@ -39,12 +45,12 @@ def get_git_info(file_path):
     return [author_name, author_email, now_str, author_name, author_email, now_str, "Not Committed Yet", "local", "none"]
 
 if mode == "clean":
-    # CLEAN Mode: Replaces any smudged $Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ tag back to the standard neutral git representation
+    # CLEAN Mode: Replaces any smudged $Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ tag back to the standard neutral git representation
     content = sys.stdin.read()
     # Non-greedy substitution to restore standard placeholder format for Git storage
     cleaned = re.sub(
-        r'\$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$)?[^$]*?\$', 
-        r'$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
+        r'\$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$)?[^$]*?\$', 
+        r'$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
         content
     )
     sys.stdout.write(cleaned)
@@ -66,11 +72,11 @@ else:
         info = get_git_info(file_name)
 
         # Format replacement string
-        replacement = f"$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+        replacement = f"$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 
         # Regex replacement targeting the dynamic format placeholders
         smudged = re.sub(
-            r'\$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
+            r'\$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
             replacement, 
             content
         )
