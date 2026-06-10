@@ -137,12 +137,88 @@ def populate_taiga(yaml_file):
 
     print("\n✅ Taiga population complete! All Sprints, Stories, and Tasks are live.")
 
+def get_existing_wiki_pages(headers):
+    """Fetches all existing wiki pages for the project."""
+    response = requests.get(f"{TAIGA_API_URL}/wiki?project={PROJECT_ID}", headers=headers)
+    response.raise_for_status()
+    # Returns a dict of slug -> {id, version}
+    return {wp["slug"]: {"id": wp["id"], "version": wp["version"]} for wp in response.json()}
+
+def create_wiki_page(slug, content, headers):
+    """Creates a new wiki page in the project."""
+    payload = {
+        "project": PROJECT_ID,
+        "slug": slug,
+        "content": content
+    }
+    response = requests.post(f"{TAIGA_API_URL}/wiki", json=payload, headers=headers)
+    if not response.ok:
+        print(f"❌ Taiga API Wiki Create Error: {response.text}")
+    response.raise_for_status()
+    print(f"  -> 🆕 Created Wiki Page: {slug}")
+
+def update_wiki_page(page_id, slug, content, version, headers):
+    """Updates an existing wiki page in the project."""
+    payload = {
+        "project": PROJECT_ID,
+        "slug": slug,
+        "content": content,
+        "version": version
+    }
+    response = requests.put(f"{TAIGA_API_URL}/wiki/{page_id}", json=payload, headers=headers)
+    if not response.ok:
+        print(f"❌ Taiga API Wiki Update Error: {response.text}")
+    response.raise_for_status()
+    print(f"  -> 🔄 Updated Wiki Page: {slug}")
+
+def sync_wiki(wiki_dir):
+    """Syncs markdown files in the specified directory to Taiga Wiki pages."""
+    print(f"🚀 Taiga Wiki Sync Sequence Initiated. Reading from {wiki_dir}...")
+    
+    token = authenticate_taiga()
+    headers = get_headers(token)
+    
+    print("🔄 Fetching existing Taiga Wiki pages...")
+    existing_wiki = get_existing_wiki_pages(headers)
+    
+    if not os.path.exists(wiki_dir):
+        print(f"❌ Error: Wiki directory does not exist: {wiki_dir}")
+        return
+        
+    for filename in os.listdir(wiki_dir):
+        if not filename.endswith(".md"):
+            continue
+            
+        file_path = os.path.join(wiki_dir, filename)
+        if not os.path.isfile(file_path):
+            continue
+            
+        # Determine slug
+        name_without_ext = os.path.splitext(filename)[0]
+        if name_without_ext == "wiki_content":
+            slug = "home"
+        else:
+            slug = name_without_ext
+            
+        print(f"\nProcessing wiki file: {filename} (slug: {slug})")
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+            
+        if slug in existing_wiki:
+            page_info = existing_wiki[slug]
+            update_wiki_page(page_info["id"], slug, content, page_info["version"], headers)
+        else:
+            create_wiki_page(slug, content, headers)
+            
+    print("\n✅ Taiga Wiki sync complete!")
+
 if __name__ == "__main__":
     if sys.stdout.encoding.lower() != 'utf-8':
         sys.stdout.reconfigure(encoding='utf-8')
 
     parser = argparse.ArgumentParser(description="Antigravity DevOps Automation")
     parser.add_argument("--populate", help="Path to the YAML file to populate Taiga", type=str)
+    parser.add_argument("--wiki", help="Path to the directory containing markdown wiki files", type=str)
     args = parser.parse_args()
 
     if args.populate:
@@ -150,5 +226,10 @@ if __name__ == "__main__":
             print("❌ Error: Missing TAIGA_USERNAME, TAIGA_PASSWORD, or TAIGA_PROJECT_ID in environment.")
         else:
             populate_taiga(args.populate)
+    elif args.wiki:
+        if not TAIGA_USERNAME or not TAIGA_PASSWORD or not PROJECT_ID:
+            print("❌ Error: Missing TAIGA_USERNAME, TAIGA_PASSWORD, or TAIGA_PROJECT_ID in environment.")
+        else:
+            sync_wiki(args.wiki)
     else:
-        print("Antigravity engine idle. Use --populate <file.yml> to run.")
+        print("Antigravity engine idle. Use --populate <file.yml> or --wiki <dir> to run.")

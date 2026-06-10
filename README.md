@@ -110,6 +110,8 @@ TG-<TaskID>: <Brief description in active voice>
 ```
 *Example:* `TG-105: Consolidate PostgreSQL to MySQL for Airflow metadata`
 
+For all the commit a task in taiga must be associated. If the task does not exists created and add the task to a user story and a sprints.
+
 ### ⚡ Git Cheat Sheet
 
 * **Create & Switch to a Feature Branch:**
@@ -185,3 +187,58 @@ git config filter.ident-dynamic.smudge "python local_tools/git-ident-filter.py s
 1. **Prerequisite Validation:** Every shell script and service config must programmatically verify that required environment variables exist and are not empty before proceeding with execution.
 2. **Post-Task Verification:** A task cannot be resolved without a corresponding test validating its success. After executing database updates, connectivity checks must be run.
 3. **WSL Integration:** WSL distributions (such as `B1AI_DEVOP1_LanFr144`) are linked directly to the project via `/mnt/c/...` or the home symlink (`~/devop1`), allowing easy CLI administration and verification under a Unix runtime.
+
+
+
+## 🌟 Standard Repository & Skill Guidelines
+
+This project strictly adheres to the developer standards defined across our organization's workspace. Every contribution must respect the following practices:
+
+### 1. Git Commit & Pipeline Governance
+* **Taiga Hook Validation:** Every commit message must start with a valid Taiga task/story ID tag (e.g., `TG-123`, `US#123`, or `[#123]`). A local git hook (`local_tools/commit-msg`) is configured to enforce this format.
+* **Pipeline Progression:** Code must progress strictly through the branches: `development` -> `test` -> `production`.
+* **Segregation of Duties:** Authors promoting/merging code must not be the sole author without secondary gate review (warnings will be generated if promoting directly without review gates).
+* **Header Tag Requirement:** Every source code or text file must include the exact identity format on its first line (or second line if a shebang is required):
+  `@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$`
+  The comment syntax must match the file's language (e.g., `#` for Python/Shell, `//` or `/* */` for JS/TS, `--` for SQL, `::`/`REM` for Batch).
+* **Line Endings:** All files must use **LF** (Line Feed) line endings. The only exception is Windows batch scripts (`*.bat`), which must use **CRLF**.
+* **Wiki Documentation Cadence:** Progress files under `documentation/` must be generated and synced to the Taiga Wiki board (`python ci-cd/antigravity_bot.py --wiki documentation/`) according to the schedule:
+  * Daily logs (`yyyymmdd_daily.md`) must be compiled and synced daily.
+  * Plan logs (`yyyymmdd_plan.md`) must be compiled and synced once every 2 days (excluding Sundays).
+  * Review logs (`yyyymmdd_revue.md`) must be compiled and synced once every 2 days (excluding Sundays).
+* **Scratch Directory Management:** Files inside `./scratch` are never deleted. Instead, use the archiving utility `python local_tools/archive_scratch.py` to move them to `%USERPROFILE%\keep`. If a file already exists in the destination, a 3-digit version code is appended using a semicolon (e.g., `test_filter.py;001`, `test_filter.py;002`).
+
+### 2. Code Review & Mentorship Policy
+* **Mentorship Perspective:** Senior engineers and peer reviewers adopt a constructive, instructional persona when providing code feedback.
+* **Review Checklist:**
+  * **Correctness:** Verify the implementation solves the intended requirements.
+  * **Edge cases:** Handle null inputs, boundary conditions, and error states defensively.
+  * **Style:** Adhere strictly to project conventions.
+  * **Performance:** Resolve nested loops, inefficient data structures, or other potential bottlenecks.
+* **Feedback Quality:** Feedback must be specific, explaining the *why* rather than just the *what*, and offering clean alternative implementations where possible.
+
+### 3. Refactoring & Architecture Standards
+* **DRY Principle:** Identify duplicated blocks and extract them into reusable utilities, helper functions, or libraries.
+* **Complexity Reduction:** Deconstruct long, monolithic functions into small, single-purpose helper functions.
+* **Micro-Files Strategy:** Prefer small, single-purpose files over monolithic structures. This ensures cleaner change tracking and simpler unit testing.
+* **Behavioral Safety:** Refactored code must maintain identical external APIs and behavior without side-effects.
+
+### 4. Database & SQL Optimization Standards (MySQL)
+* **Performance & Locks:** Prevent row locking issues and deadlocks. Always utilize database analysis tools (like `EXPLAIN`) for performance auditing.
+* **Security & Access Control:**
+  * **No Hardcoded Credentials:** Application scripts must never embed plain usernames or passwords.
+  * **Restricted Access:** Access database objects via proxy users or restricted views owned by dedicated schemas.
+  * **Bind Variables:** All parameterized inputs must use bind variables. Dynamic query string concatenation is strictly forbidden.
+  * **Grants & Synonyms:** DDL/DML scripts must include required `GRANT` statements and `SYNONYM` configurations.
+* **Transaction Management:** Auto-commit must be disabled. Explicitly control transaction scope via `COMMIT` and `ROLLBACK` blocks.
+* **Syntax Standards:** Object and column names must be double-quoted (`"`) or back-quoted (`` ` ``) to prevent collision with reserved keywords. Avoid using keywords reserved in Oracle or standard SQL.
+
+### 5. Documentation Synchronization
+* **Continuous Synchronization:** Documentation, inline comments, and README instructions must be updated concurrently with any code change.
+* **Architectural Impacts:** Significant system design updates must be traced and documented across the entire codebase.
+* **Onboarding On-demand:** Documentation is authored assuming the reader is a new teammate, requiring maximum clarity and completeness.
+
+### 6. Test-Driven Development (TDD) Policy
+* **Isolation vs Integration:** Write unit tests for individual functions and integration tests for complete workflows.
+* **Robust Mocks:** Mock external databases, API calls, and environment parameters using robust testing frameworks.
+* **Coverage:** Strive for maximum logical coverage, specifically targeting newly modified lines of code.

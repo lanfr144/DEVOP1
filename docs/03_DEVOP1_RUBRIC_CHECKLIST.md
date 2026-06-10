@@ -9,10 +9,10 @@ Antigravity must ensure the project repository fulfills these specific grading c
 - [ ] Direct link to Git repository for code tracking via webhooks.
 
 ## Part 2: Version Control
-- [ ] At least 3 active feature branches with a clean commit history.
-- [ ] README.md includes a Git cheat sheet and workflow standards.
-- [ ] `.gitattributes` and Python script configured to manage `$Format$` expansion tags.
-- [ ] All file line endings are strictly configured to use `LF` (Line Feed) and not `CRLF`.
+- [x] At least 3 active feature branches with a clean commit history.
+- [x] README.md includes a Git cheat sheet and workflow standards.
+- [x] `.gitattributes` and Python script configured to manage `$Format$` expansion tags.
+- [x] All file line endings are strictly configured to use `LF` (Line Feed) and not `CRLF`.
 
 ## Part 3 & 5: Docker & Web App
 - [ ] Web App (Frontend + Backend) containerized with optimized Dockerfiles.
