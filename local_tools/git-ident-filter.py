@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 import sys
 import os
 import subprocess
@@ -45,12 +45,12 @@ def get_git_info(file_path):
     return [author_name, author_email, now_str, author_name, author_email, now_str, "Not Committed Yet", "local", "none"]
 
 if mode == "clean":
-    # CLEAN Mode: Replaces any smudged $Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ tag back to the standard neutral git representation
+    # CLEAN Mode: Replaces any smudged $Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ tag back to the standard neutral git representation
     content = sys.stdin.read()
     # Non-greedy substitution to restore standard placeholder format for Git storage
     cleaned = re.sub(
-        r'\$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$)?[^$]*?\$', 
-        r'$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
+        r'\$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$)?[^$]*?\$', 
+        r'$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
         content
     )
     sys.stdout.write(cleaned)
@@ -72,11 +72,11 @@ else:
         info = get_git_info(file_name)
 
         # Format replacement string
-        replacement = f"$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+        replacement = f"$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 
         # Regex replacement targeting the dynamic format placeholders
         smudged = re.sub(
-            r'\$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
+            r'\$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', 
             replacement, 
             content
         )

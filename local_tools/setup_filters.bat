@@ -1,4 +1,4 @@
-REM ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+REM ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 @echo off
 :: Configuration des filtres avec des chemins relatifs portables (Git s'execute toujours a la racine du depot)
 @git config filter.ident-dynamic.clean "python local_tools/git-ident-filter.py clean"

@@ -1,4 +1,4 @@
-<!-- # ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ -->
+<!-- # ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ -->
 # DEVOP1 Project Rubric & Delivery Checklist
 **Deadline:** June 24, 2026
 
