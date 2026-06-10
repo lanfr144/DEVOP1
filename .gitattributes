@@ -32,6 +32,7 @@ git-ident-filter.py text eol=lf
 *.txt filter=ident-dynamic
 *.yml filter=ident-dynamic
 .env filter=ident-dynamic
+.env.example filter=ident-dynamic
 *.sql filter=ident-dynamic
 .gitignore filter=ident-dynamic
 Dockerfile filter=ident-dynamic

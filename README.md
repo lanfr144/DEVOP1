@@ -182,8 +182,12 @@ git config filter.ident-dynamic.smudge "python local_tools/git-ident-filter.py s
 
 ## 🐳 Quickstart: Docker Compose Local Environment
 
-1. **Verify or Configure the Local Environment (`.env`):**
-   Ensure `.env` contains the required credentials and ports.
+1. **Configure the Local Environment (`.env`):**
+   Copy the example template file to create your local `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+   Modify the `.env` parameters (e.g. database credentials, monitoring webhooks, ports) as needed.
 2. **Launch the Container Stack:**
    ```bash
    docker compose up -d
