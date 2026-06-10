@@ -17,43 +17,60 @@ The following diagram illustrates the containerized development topology and dat
 
 ```mermaid
 graph TD
-    %% Define styles
-    classDef client fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef gateway fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef app fill:#ddf,stroke:#333,stroke-width:2px;
-    classDef storage fill:#ffb,stroke:#333,stroke-width:2px;
-    classDef monitor fill:#ffd,stroke:#333,stroke-width:2px;
-    
-    %% Elements
-    User((Developer / Client)):::client
-    HostPort[Host Port: 3317]:::gateway
-    
+    %% Define Node Styles
+    classDef user fill:#e1bee7,stroke:#8e24aa,stroke-width:2px,color:#000;
+    classDef git fill:#cfd8dc,stroke:#455a64,stroke-width:2px,stroke-dasharray: 4 4,color:#000;
+    classDef db fill:#ffe082,stroke:#ff8f00,stroke-width:2px,color:#000;
+    classDef app fill:#bbdefb,stroke:#1976d2,stroke-width:2px,color:#000;
+    classDef mon fill:#b2dfdb,stroke:#00796b,stroke-width:2px,color:#000;
+    classDef k8s fill:#c8e6c9,stroke:#388e3c,stroke-width:2px,color:#000;
+    classDef cicd fill:#ffcc80,stroke:#e65100,stroke-width:2px,color:#000;
+
+    User((Developer / Client)):::user
+    Git[(Git Repository <br> Taiga Sync)]:::git
+
     subgraph DockerCompose [Docker Compose Environment]
-        WebBackend[web-backend <br> Python Flask API <br> Port 5000]:::app
+        MySQL[(MySQL 8.0 Consolidated DB <br> Host: 3317 / Cont: 3306)]:::db
         
-        subgraph MySQL_Stack [MySQL Consolidated Engine]
-            MySQL_DB[(MySQL 8.0 Daemon <br> Port 3306)]:::storage
-            InitScript[init.sql <br> auto-provisioning]:::gateway
+        subgraph AirflowStack [Workflow Automation]
+            Airflow[Apache Airflow <br> UI & Scheduler]:::app
         end
         
-        subgraph Airflow_Stack [Apache Airflow Engine]
-            AirflowWeb[Airflow Webserver <br> Port 8080]:::app
-            AirflowSch[Airflow Scheduler]:::app
+        subgraph MonitorStack [Telemetry]
+            Zabbix[Zabbix Server & UI <br> Alerts: Discord/Teams]:::mon
         end
     end
+
+    subgraph K3s [Kubernetes K3s Cluster]
+        subgraph CICD [CI/CD Pipeline]
+            JenkinsMaster[Jenkins Master Pod]:::cicd
+            JenkinsAgent[Dynamic Build Agents]:::cicd
+        end
+        
+        subgraph Workloads [Application Deployments]
+            WebApp[Web App Pods <br> Flask / React]:::k8s
+            LB[Load Balancer <br> MetalLB / NGINX]:::k8s
+        end
+    end
+
+    %% Developer & User Workflows
+    User -->|API & Front-End Access| LB
+    LB -->|Routes Traffic| WebApp
+    User -->|Commits TG-XXX| Git
     
-    %% Flows
-    User -->|API Requests| WebBackend
-    User -->|External Access <br> Host:Port 3317| HostPort
-    HostPort -->|Map| MySQL_DB
+    %% CI/CD Data Flow
+    Git -->|Webhooks / Polling| JenkinsMaster
+    JenkinsMaster -.->|Provisions execution pods| JenkinsAgent
+    JenkinsAgent -->|Build, Push & Deploy via Helm| WebApp
     
-    InitScript -.->|First Run <br> Provision| MySQL_DB
-    WebBackend -->|Connects to <br> devop1_db| MySQL_DB
+    %% Unified Database Connectivity
+    WebApp -->|Application Data <br> devop1_db| MySQL
+    Airflow -->|Orchestration Metadata <br> airflow_db| MySQL
+    Zabbix -->|Metrics & Configs <br> zabbix_db| MySQL
     
-    AirflowWeb -->|Metadata Store <br> airflow_db| MySQL_DB
-    AirflowSch -->|Metadata Store <br> airflow_db| MySQL_DB
-    
-    class MySQL_DB,InitScript storage;
+    %% Monitoring Overlays
+    Zabbix -.->|SNMP / Active Agents| K3s
+    Zabbix -.->|Health Checks| MySQL
 ```
 
 ---
