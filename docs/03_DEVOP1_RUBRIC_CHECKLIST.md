@@ -5,8 +5,8 @@
 Antigravity must ensure the project repository fulfills these specific grading criteria:
 
 ## Part 1: Implementing Agile Methods
-- [ ] Taiga boards configured and workloads assigned.
-- [ ] Direct link to Git repository for code tracking via webhooks.
+- [x] Taiga boards configured and workloads assigned.
+- [x] Direct link to Git repository for code tracking via webhooks.
 
 ## Part 2: Version Control
 - [x] At least 3 active feature branches with a clean commit history.
