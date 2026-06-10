@@ -1,0 +1,324 @@
+{
+    "project_id": "1785465",
+    "sprints": [
+        {
+            "id": 518278,
+            "name": "Sprint 1: Infrastructure & Version Control Foundations",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        },
+        {
+            "id": 518279,
+            "name": "Sprint 2: Docker Environment & Database Configuration",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        },
+        {
+            "id": 518281,
+            "name": "Sprint 4: CI/CD Pipelines & Kubernetes Orchestration",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        },
+        {
+            "id": 518282,
+            "name": "Sprint 5: Testing, Validation, & Presentation Prep",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        },
+        {
+            "id": 518280,
+            "name": "Sprint 3: Web App Deployment & Real-Time Monitoring",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        },
+        {
+            "id": 518325,
+            "name": "Sprint 6: Automation & Advanced Scheduling",
+            "estimated_start": "2024-01-01",
+            "estimated_finish": "2026-06-24",
+            "closed": true
+        }
+    ],
+    "user_stories": [
+        {
+            "id": 9253539,
+            "subject": "As a team, we need an Agile management platform to track sprints and progress.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518278
+        },
+        {
+            "id": 9253540,
+            "subject": "As developers, we need a Git repository initialized with a standard branching strategy.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518278
+        },
+        {
+            "id": 9253541,
+            "subject": "As a developer, I need a scalable virtualization infrastructure using Docker.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518279
+        },
+        {
+            "id": 9253542,
+            "subject": "As a data owner, I need a containerized MySQL database.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518279
+        },
+        {
+            "id": 9253543,
+            "subject": "As a user, I want a functional, containerized web application.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518280
+        },
+        {
+            "id": 9253544,
+            "subject": "As an admin, I need a Dockerized Grafana stack to visualize system health.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518280
+        },
+        {
+            "id": 9253545,
+            "subject": "As a DevOps engineer, I need Jenkins deployed on Kubernetes.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518281
+        },
+        {
+            "id": 9253546,
+            "subject": "As a team, we need to finalize the project for submission by June 24, 2026.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518282
+        },
+        {
+            "id": 9254316,
+            "subject": "As a DevOps engineer, I need robust automation and scheduling across the stack.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518325
+        },
+        {
+            "id": 9254317,
+            "subject": "As a team, we need enhanced communication and documentation.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518325
+        },
+        {
+            "id": 9297214,
+            "subject": "As an admin, I need a Dockerized Zabbix stack to visualize system health.",
+            "status_id": 10832456,
+            "is_closed": true,
+            "milestone": 518280
+        }
+    ],
+    "tasks": [
+        {
+            "id": 9033318,
+            "subject": "Configure custom boards and workflows in Taiga.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253539
+        },
+        {
+            "id": 9033319,
+            "subject": "Link Taiga directly to the GitHub repository for code tracking.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253539
+        },
+        {
+            "id": 9033320,
+            "subject": "Create README.md with Git documentation and cheat sheet.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253540
+        },
+        {
+            "id": 9033321,
+            "subject": "Create at least 3 active feature branches for initial modules.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253540
+        },
+        {
+            "id": 9033323,
+            "subject": "Write Dockerfiles for backend, frontend, and Zabbix components.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253541
+        },
+        {
+            "id": 9033324,
+            "subject": "Develop docker-compose.yml defining services, volumes, and networks.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253541
+        },
+        {
+            "id": 9033325,
+            "subject": "Spin up MySQL with volume mounts for persistent data storage.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253542
+        },
+        {
+            "id": 9033326,
+            "subject": "Use a Python script with SQLAlchemy to connect to MySQL and load data.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253542
+        },
+        {
+            "id": 9033327,
+            "subject": "Build basic frontend and backend components.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253543
+        },
+        {
+            "id": 9033328,
+            "subject": "Configure .env file to manage secrets dynamically.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253543
+        },
+        {
+            "id": 9033329,
+            "subject": "Configure services for Grafana, Prometheus, and InfluxDB in Docker Compose.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253544
+        },
+        {
+            "id": 9033330,
+            "subject": "Design three dashboards displaying system metrics and database performance.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253544
+        },
+        {
+            "id": 9033331,
+            "subject": "Set up alert notifications via Teams/Slack.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253544
+        },
+        {
+            "id": 9033332,
+            "subject": "Provision the local or cloud Kubernetes cluster.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253545
+        },
+        {
+            "id": 9033333,
+            "subject": "Set up the Jenkins master using the Kubernetes plugin.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253545
+        },
+        {
+            "id": 9033334,
+            "subject": "Create declarative Jenkinsfiles to pull code, run tests, and build Docker images.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253545
+        },
+        {
+            "id": 9033335,
+            "subject": "Conduct thorough testing to identify and resolve bugs.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253546
+        },
+        {
+            "id": 9033336,
+            "subject": "Prepare the 30-minute presentation covering timeline, architecture, and live demo.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9253546
+        },
+        {
+            "id": 9033814,
+            "subject": "Install and configure Apache Airflow in Docker Compose.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254316
+        },
+        {
+            "id": 9033815,
+            "subject": "Ensure batch, cron, and at scheduling capabilities are available everywhere.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254316
+        },
+        {
+            "id": 9033816,
+            "subject": "Implement automated log cleanup procedures.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254316
+        },
+        {
+            "id": 9033817,
+            "subject": "Integrate Discord webhook notifications.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        },
+        {
+            "id": 9033818,
+            "subject": "Populate the Taiga Wiki with operational and architectural documentation.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        },
+        {
+            "id": 9033819,
+            "subject": "Configure Git Webhooks in Taiga for commit tracking.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        },
+        {
+            "id": 9091499,
+            "subject": "Configure services for Zabbix Server, Web Interface, and Database in Docker Compose.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9297214
+        },
+        {
+            "id": 9091500,
+            "subject": "Design three Zabbix dashboards (System, App, and DB metrics) and export as XML.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9297214
+        },
+        {
+            "id": 9091501,
+            "subject": "Set up alert notifications via Email, Teams, and Discord.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9297214
+        },
+        {
+            "id": 9123630,
+            "subject": "Create skill directory setup and configuration guide",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        }
+    ]
+}

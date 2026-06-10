@@ -259,3 +259,12 @@ This project strictly adheres to the developer standards defined across our orga
 * **Isolation vs Integration:** Write unit tests for individual functions and integration tests for complete workflows.
 * **Robust Mocks:** Mock external databases, API calls, and environment parameters using robust testing frameworks.
 * **Coverage:** Strive for maximum logical coverage, specifically targeting newly modified lines of code.
+
+---
+
+## 🗃️ 9. Project Operations & Setup Manuals
+
+* **[Deployment & Operations Manual](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/OPERATIONS_MANUAL.md):** The primary operational document detailing dynamic port offsetting, local setup, database backup/restores, and Kubernetes instructions.
+* **[Gemini Skills Setup Guide](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/GEMINI_SKILLS_SETUP.md):** Explains how to place and configure Gemini agent skills to enforce development standards.
+* **[Taiga Project State Export](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/taiga_export.json):** The JSON database snapshot showing the fully closed state of the Agile boards, stories, and tasks.
+
