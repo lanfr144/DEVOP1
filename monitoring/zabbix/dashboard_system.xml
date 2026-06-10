@@ -1,0 +1,37 @@
+<!-- #ident @(#)$Format:DEVOP1:monitoring/zabbix/dashboard_system.xml:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <date>2026-06-10T18:00:00Z</date>
+    <dashboards>
+        <dashboard>
+            <name>System Metrics Dashboard</name>
+            <pages>
+                <page>
+                    <widgets>
+                        <widget>
+                            <type>graph</type>
+                            <name>CPU / Memory Usage</name>
+                            <width>12</width>
+                            <height>5</height>
+                            <fields>
+                                <field>
+                                    <type>INTEGER</type>
+                                    <name>source_type</name>
+                                    <value>0</value>
+                                </field>
+                            </fields>
+                        </widget>
+                        <widget>
+                            <type>hostavail</type>
+                            <name>Host Availability Status</name>
+                            <x>12</x>
+                            <width>12</width>
+                            <height>5</height>
+                        </widget>
+                    </widgets>
+                </page>
+            </pages>
+        </dashboard>
+    </dashboards>
+</zabbix_export>

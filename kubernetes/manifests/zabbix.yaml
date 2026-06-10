@@ -1,0 +1,86 @@
+#ident @(#)$Format:DEVOP1:kubernetes/manifests/zabbix.yaml:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-server
+  namespace: default
+spec:
+  ports:
+    - port: 10051
+      targetPort: 10051
+  selector:
+    app: zabbix-server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: zabbix-server
+  template:
+    metadata:
+      labels:
+        app: zabbix-server
+    spec:
+      containers:
+      - image: zabbix/zabbix-server-mysql:ubuntu-6.4-latest
+        name: server
+        env:
+        - name: DB_SERVER_HOST
+          value: db
+        - name: MYSQL_DATABASE
+          value: zabbix
+        - name: MYSQL_USER
+          value: zabbix
+        - name: MYSQL_PASSWORD
+          value: your_db_password_here
+        ports:
+        - containerPort: 10051
+          name: trapport
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-web
+  namespace: default
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: zabbix-web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: zabbix-web
+  template:
+    metadata:
+      labels:
+        app: zabbix-web
+    spec:
+      containers:
+      - image: zabbix/zabbix-web-nginx-mysql:ubuntu-6.4-latest
+        name: web
+        env:
+        - name: DB_SERVER_HOST
+          value: db
+        - name: MYSQL_DATABASE
+          value: zabbix
+        - name: MYSQL_USER
+          value: zabbix
+        - name: MYSQL_PASSWORD
+          value: your_db_password_here
+        - name: ZBX_SERVER_HOST
+          value: zabbix-server
+        ports:
+        - containerPort: 8080
+          name: http

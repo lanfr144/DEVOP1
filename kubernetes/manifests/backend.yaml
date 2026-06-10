@@ -1,0 +1,43 @@
+#ident @(#)$Format:DEVOP1:kubernetes/manifests/backend.yaml:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-backend
+  namespace: default
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: backend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: devop1-backend:latest
+        name: backend
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DATABASE_HOST
+          value: db
+        - name: DATABASE_USER
+          value: dev_user
+        - name: DATABASE_PASSWORD
+          value: your_db_password_here
+        - name: DATABASE_NAME
+          value: devop1_db
+        ports:
+        - containerPort: 5000
+          name: api

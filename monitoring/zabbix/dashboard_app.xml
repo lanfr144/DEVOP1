@@ -1,0 +1,30 @@
+<!-- #ident @(#)$Format:DEVOP1:monitoring/zabbix/dashboard_app.xml:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ -->
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <date>2026-06-10T18:00:00Z</date>
+    <dashboards>
+        <dashboard>
+            <name>Application Metrics Dashboard</name>
+            <pages>
+                <page>
+                    <widgets>
+                        <widget>
+                            <type>graph</type>
+                            <name>Flask App Request Rate (RPM)</name>
+                            <width>12</width>
+                            <height>5</height>
+                        </widget>
+                        <widget>
+                            <type>toptoriggers</type>
+                            <name>Top Application Incidents</name>
+                            <x>12</x>
+                            <width>12</width>
+                            <height>5</height>
+                        </widget>
+                    </widgets>
+                </page>
+            </pages>
+        </dashboard>
+    </dashboards>
+</zabbix_export>
