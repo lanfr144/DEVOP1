@@ -22,14 +22,14 @@ def get_version_info():
     if match:
         parts = match.group(1).split(':')
         if len(parts) >= 9 and not parts[0].startswith('%an'):
-            date_str = parts[2]
+            date_str = parts[5]
             commit_hash = parts[6]
             short_hash = commit_hash[:7] if commit_hash else ""
             return date_str, short_hash
 
     # Fallback to local Git if not smudged
     try:
-        cmd = ["git", "log", "-1", "--date=format:%Y/%m/%d %H:%M:%S", "--format=%ad|%H"]
+        cmd = ["git", "log", "-1", "--date=format:%Y/%m/%d %H:%M:%S", "--format=%cd|%H"]
         out = subprocess.check_output(cmd, stderr=subprocess.DEVNULL).decode('utf-8').strip()
         if out:
             date_str, full_hash = out.split('|')
