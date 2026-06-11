@@ -6,17 +6,22 @@ import yaml
 import sys
 from dotenv import load_dotenv
 
-# Load local environment configuration
+# -----------------------------------------------------------------------------
+# STEP 1: LOAD ENVIRONMENT CONFIGURATION
+# -----------------------------------------------------------------------------
+# Read keys from local .env config
 load_dotenv()
 
-# Taiga API Configuration
 TAIGA_API_URL = "https://api.taiga.io/api/v1"
 TAIGA_USERNAME = os.getenv("TAIGA_USERNAME")
 TAIGA_PASSWORD = os.getenv("TAIGA_PASSWORD")
 PROJECT_ID = os.getenv("TAIGA_PROJECT_ID")
 
+# -----------------------------------------------------------------------------
+# STEP 2: AUTHENTICATE WITH TAIGA API
+# -----------------------------------------------------------------------------
 def authenticate_taiga():
-    """Authenticates with Taiga using Username/Password and returns the auth token."""
+    """Sends credentials to Taiga authentication endpoint and obtains token."""
     print("🔐 Authenticating with Taiga...")
     payload = {
         "type": "normal",
@@ -34,30 +39,45 @@ def authenticate_taiga():
         print(f"❌ Authentication failed: {e}")
         sys.exit(1)
 
+# -----------------------------------------------------------------------------
+# STEP 3: API REQUEST HEADERS GENERATOR
+# -----------------------------------------------------------------------------
 def get_headers(token):
-    """Returns the authorization headers needed for API calls."""
+    """Formats standard HTTP headers with bearer auth token."""
     return {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
 
+# -----------------------------------------------------------------------------
+# STEP 4: FETCH EXISTING TAIGA INFRASTRUCTURE DATA
+# -----------------------------------------------------------------------------
 def get_existing_milestones(headers):
+    """Fetches all existing sprints (milestones) for the project to prevent duplicates."""
     response = requests.get(f"{TAIGA_API_URL}/milestones?project={PROJECT_ID}", headers=headers)
     response.raise_for_status()
+    # Returns a dictionary mapping sprint name to its ID
     return {m["name"]: m["id"] for m in response.json()}
 
 def get_existing_user_stories(headers):
+    """Fetches all user stories for the project to prevent duplicates."""
     response = requests.get(f"{TAIGA_API_URL}/userstories?project={PROJECT_ID}", headers=headers)
     response.raise_for_status()
+    # Returns a dictionary mapping user story subject to its ID
     return {us["subject"]: us["id"] for us in response.json()}
 
 def get_existing_tasks(headers):
+    """Fetches all tasks in the project to prevent duplicates."""
     response = requests.get(f"{TAIGA_API_URL}/tasks?project={PROJECT_ID}", headers=headers)
     response.raise_for_status()
+    # Returns a dictionary mapping task subject to its ID
     return {t["subject"]: t["id"] for t in response.json()}
 
+# -----------------------------------------------------------------------------
+# STEP 5: CREATE TAIGA ENTITIES (Idempotent helpers)
+# -----------------------------------------------------------------------------
 def create_taiga_milestone(name, headers):
-    """Creates a Sprint (Milestone) in Taiga."""
+    """Invokes Taiga API POST command to create a new Sprint (Milestone)."""
     payload = {
         "name": name,
         "project": PROJECT_ID,
@@ -71,7 +91,7 @@ def create_taiga_milestone(name, headers):
     return response.json()["id"]
 
 def create_taiga_user_story(title, milestone_id, headers):
-    """Creates a User Story and assigns it to a Sprint."""
+    """Invokes Taiga API POST command to create a new User Story inside a Sprint."""
     payload = {
         "subject": title,
         "project": PROJECT_ID,
@@ -82,7 +102,7 @@ def create_taiga_user_story(title, milestone_id, headers):
     return response.json()["id"]
 
 def create_taiga_task(subject, user_story_id, headers):
-    """Creates a Task under a specific User Story."""
+    """Invokes Taiga API POST command to create a new Task nested under a User Story."""
     payload = {
         "subject": subject,
         "project": PROJECT_ID,
@@ -92,8 +112,11 @@ def create_taiga_task(subject, user_story_id, headers):
     response.raise_for_status()
     return response.json()["id"]
 
+# -----------------------------------------------------------------------------
+# STEP 6: YAML PARSING AND TAIGA POPULATION DRIVER
+# -----------------------------------------------------------------------------
 def populate_taiga(yaml_file):
-    """Parses the YAML file and populates the Taiga project idempotently."""
+    """Reads project sprints/stories/tasks definition YAML and populates Taiga idempotently."""
     print(f"🚀 Antigravity Sequence Initiated. Reading {yaml_file}...")
     
     token = authenticate_taiga()
@@ -104,9 +127,11 @@ def populate_taiga(yaml_file):
     existing_stories = get_existing_user_stories(headers)
     existing_tasks = get_existing_tasks(headers)
     
+    # Load and parse yml data structure
     with open(yaml_file, 'r', encoding='utf-8') as file:
         data = yaml.safe_load(file)
         
+    # Iterate through milestones (sprints) in the parsed YAML
     for sprint in data.get('sprints', []):
         name = sprint['name']
         if name in existing_milestones:
@@ -117,6 +142,7 @@ def populate_taiga(yaml_file):
             milestone_id = create_taiga_milestone(name, headers)
             existing_milestones[name] = milestone_id
             
+        # Iterate user stories within the sprint
         for story in sprint.get('user_stories', []):
             title = story['title']
             if title in existing_stories:
@@ -127,6 +153,7 @@ def populate_taiga(yaml_file):
                 story_id = create_taiga_user_story(title, milestone_id, headers)
                 existing_stories[title] = story_id
                 
+            # Iterate tasks nested under the user story
             for task in story.get('tasks', []):
                 if task in existing_tasks:
                     print(f"      -> ⏭️  Skipping existing Task: {task}")
@@ -137,15 +164,18 @@ def populate_taiga(yaml_file):
 
     print("\n✅ Taiga population complete! All Sprints, Stories, and Tasks are live.")
 
+# -----------------------------------------------------------------------------
+# STEP 7: WIKI SYNCHRONIZATION FUNCTIONALITY
+# -----------------------------------------------------------------------------
 def get_existing_wiki_pages(headers):
-    """Fetches all existing wiki pages for the project."""
+    """Queries Taiga for all existing wiki pages on the project."""
     response = requests.get(f"{TAIGA_API_URL}/wiki?project={PROJECT_ID}", headers=headers)
     response.raise_for_status()
-    # Returns a dict of slug -> {id, version}
+    # Returns slug mapping to {id, version} for updates
     return {wp["slug"]: {"id": wp["id"], "version": wp["version"]} for wp in response.json()}
 
 def create_wiki_page(slug, content, headers):
-    """Creates a new wiki page in the project."""
+    """Sends POST command to create a new Wiki page slug on Taiga."""
     payload = {
         "project": PROJECT_ID,
         "slug": slug,
@@ -158,7 +188,7 @@ def create_wiki_page(slug, content, headers):
     print(f"  -> 🆕 Created Wiki Page: {slug}")
 
 def update_wiki_page(page_id, slug, content, version, headers):
-    """Updates an existing wiki page in the project."""
+    """Sends PUT command to update an existing Wiki page on Taiga, supplying current version."""
     payload = {
         "project": PROJECT_ID,
         "slug": slug,
@@ -185,6 +215,7 @@ def sync_wiki(wiki_dir):
         print(f"❌ Error: Wiki directory does not exist: {wiki_dir}")
         return
         
+    # Process all markdown files in target directory
     for filename in os.listdir(wiki_dir):
         if not filename.endswith(".md"):
             continue
@@ -193,7 +224,7 @@ def sync_wiki(wiki_dir):
         if not os.path.isfile(file_path):
             continue
             
-        # Determine slug
+        # Standardize slug (home page uses 'home', others use file basename)
         name_without_ext = os.path.splitext(filename)[0]
         if name_without_ext == "wiki_content":
             slug = "home"
@@ -204,6 +235,7 @@ def sync_wiki(wiki_dir):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
             
+        # If slug page exists, update it. Otherwise, create it.
         if slug in existing_wiki:
             page_info = existing_wiki[slug]
             update_wiki_page(page_info["id"], slug, content, page_info["version"], headers)
@@ -212,7 +244,11 @@ def sync_wiki(wiki_dir):
             
     print("\n✅ Taiga Wiki sync complete!")
 
+# -----------------------------------------------------------------------------
+# STEP 8: ARGUMENT PARSING AND SCRIPT ROUTING
+# -----------------------------------------------------------------------------
 if __name__ == "__main__":
+    # Ensure stdout handles UTF-8 correctly
     if sys.stdout.encoding.lower() != 'utf-8':
         sys.stdout.reconfigure(encoding='utf-8')
 
@@ -221,6 +257,7 @@ if __name__ == "__main__":
     parser.add_argument("--wiki", help="Path to the directory containing markdown wiki files", type=str)
     args = parser.parse_args()
 
+    # Route execution based on CLI parameters
     if args.populate:
         if not TAIGA_USERNAME or not TAIGA_PASSWORD or not PROJECT_ID:
             print("❌ Error: Missing TAIGA_USERNAME, TAIGA_PASSWORD, or TAIGA_PROJECT_ID in environment.")

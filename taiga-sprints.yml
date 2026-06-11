@@ -63,3 +63,5 @@ sprints:
           - "Populate the Taiga Wiki with operational and architectural documentation."
           - "Configure Git Webhooks in Taiga for commit tracking."
           - "Purge leaked passwords and format application versioning."
+          - "Audit and report ghost/unused files in the repository."
+          - "Configure absolute paths for ident-dynamic filter and enforce date format."

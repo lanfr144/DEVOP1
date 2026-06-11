@@ -219,9 +219,9 @@ This project strictly adheres to the developer standards defined across our orga
 * **Taiga Hook Validation:** Every commit message must start with a valid Taiga task/story ID tag (e.g., `TG-123`, `US#123`, or `[#123]`). A local git hook (`local_tools/commit-msg`) is configured to enforce this format.
 * **Pipeline Progression:** Code must progress strictly through the branches: `development` -> `test` -> `production`.
 * **Segregation of Duties:** Authors promoting/merging code must not be the sole author without secondary gate review (warnings will be generated if promoting directly without review gates).
-* **Header Tag Requirement:** Every source code or text file must include the exact identity format on its first line (or second line if a shebang is required):
-  `@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$`
-  The comment syntax must match the file's language (e.g., `#` for Python/Shell, `//` or `/* */` for JS/TS, `--` for SQL, `::`/`REM` for Batch).
+* **Header Tag Requirement:** Every source code, scripting, config, or text file (including ignored scratch files) must include the exact identity format at the top of the file:
+  `ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"`
+  The comment syntax must match the file's language (e.g., `#` for Python/Shell/YAML/Markdown/Dockerfiles, `--` for SQL, `::` for Batch). For tracked files, the git smudge filter expands this dynamically. Ignore-listed/scratch files must carry the comment statically for structure.
 * **Line Endings:** All files must use **LF** (Line Feed) line endings. The only exception is Windows batch scripts (`*.bat`), which must use **CRLF**.
 * **Wiki Documentation Cadence:** Progress files under `documentation/` must be generated and synced to the Taiga Wiki board (`python ci-cd/antigravity_bot.py --wiki documentation/`) according to the schedule:
   * Daily logs (`yyyymmdd_daily.md`) must be compiled and synced daily.
