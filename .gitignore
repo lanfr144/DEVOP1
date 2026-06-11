@@ -33,6 +33,7 @@ frontend/.angular/
 frontend/dist/
 frontend/node_modules/
 node_modules/
-scratch/
+scratch/*
+!scratch/*.py
 venv/
 vscode
