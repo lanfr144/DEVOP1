@@ -25,16 +25,13 @@ def get_version_info():
         first_line = ""
 
     # B. Extract smudged metadata using regular expressions
-    # Looks for the $Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ structure.
-    match = re.search(r'\$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$', first_line)
+    # Matches the YYYY/MM/DD HH:MM:SS date and the 40-character commit hash.
+    match = re.search(r':(\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}):([0-9a-fA-F]{40}|Not Committed Yet):', first_line)
     if match:
-        parts = match.group(1).split(':')
-        # Ensure we have retrieved the components and it isn't the unsmudged placeholder string
-        if len(parts) >= 9 and not parts[0].startswith('%an'):
-            date_str = parts[5] # Index 5 is the commit date (%cd)
-            commit_hash = parts[6] # Index 6 is the commit hash (%H)
-            short_hash = commit_hash[:7] if commit_hash else ""
-            return date_str, short_hash
+        date_str = match.group(1)
+        commit_hash = match.group(2)
+        short_hash = commit_hash[:7] if commit_hash != "Not Committed Yet" else ""
+        return date_str, short_hash
 
     # C. Fallback: Query system Git CLI if the tag is unsmudged (e.g. running from local untracked directory)
     try:

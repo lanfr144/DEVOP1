@@ -80,9 +80,8 @@ if mode == "clean":
     
     # Non-greedy substitution to restore standard placeholder format for Git storage.
     # We construct the search pattern and replacement dynamically to avoid matching our own code.
-    # Pattern explanation: Looks for "$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$" character.
-    pattern = r'\$Format' + r':.*?(:\s*%[a-zA-Z]|\$)?[^$]*?\$'
-    repl = r'$Format' + r':LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$'
+    pattern = r'\$F' + r'ormat:[^$]+\$'
+    repl = r'$F' + r'ormat:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$'
     
     # Run regular expression search and replace
     cleaned = re.sub(pattern, repl, content)
@@ -108,13 +107,13 @@ else:
         # Query git log metadata or local config fallbacks
         info = get_git_info(file_name)
 
-        # Format replacement string using LocalFoodAI and app.py
+        # Format replacement string using dynamic project name and relative file path
         # This replaces the placeholder metadata fields with actual git variables
-        replacement = f"$Format" + f":LocalFoodAI:app.py:{info[0]}:{info[1]}:{info[2]}:{info[3]}:{info[4]}:{info[5]}:{info[6]}:{info[7]}:{info[8]}$"
+        replacement = f"$F" + f"ormat:{project_name}:{file_name}:{info[0]}:{info[1]}:{info[2]}:{info[3]}:{info[4]}:{info[5]}:{info[6]}:{info[7]}:{info[8]}$"
 
         # Regex replacement targeting the dynamic format placeholders
         # Pattern explanation: Matches "$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
-        pattern = r'\$Format' + r':[^:]+:[^:]+:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N\$'
+        pattern = r'\$F' + r'ormat:LocalFoodAI:app\.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N\$'
         smudged = re.sub(pattern, replacement, content)
         
         # Write smudged file contents to stdout so Git can output the file onto the filesystem
