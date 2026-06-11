@@ -319,6 +319,27 @@
             "status_id": 8901961,
             "is_closed": true,
             "user_story": 9254317
+        },
+        {
+            "id": 9126895,
+            "subject": "Purge leaked passwords and format application versioning.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        },
+        {
+            "id": 9126940,
+            "subject": "Audit and report ghost/unused files in the repository.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
+        },
+        {
+            "id": 9126941,
+            "subject": "Configure absolute paths for ident-dynamic filter and enforce date format.",
+            "status_id": 8901961,
+            "is_closed": true,
+            "user_story": 9254317
         }
     ]
 }
