@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 ---
 name: git-commit
 description: Enforces strict Git governance, Taiga tracking, branching strategies, and file metadata standards.

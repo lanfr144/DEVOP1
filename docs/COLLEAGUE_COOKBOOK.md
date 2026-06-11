@@ -1,4 +1,4 @@
-# ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 
 # 📖 Colleague Onboarding & Setup Cookbook: DEVOP1
 

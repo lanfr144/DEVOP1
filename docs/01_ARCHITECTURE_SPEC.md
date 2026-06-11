@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 # Technical Specification & Architecture: DEVOP1 Enterprise PoC
 
 This document serves as the comprehensive blueprint for the DEVOP1 system, designed to fulfill the academic requirements while demonstrating advanced Enterprise DevOps capabilities (High Availability, Disaster Recovery, and Heterogeneous Clustering).

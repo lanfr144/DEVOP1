@@ -1,4 +1,4 @@
-<!-- #ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$ -->
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 # 🧠 Gemini Agent Skills Configuration & Setup Guide
 
 This guide details the structure of the custom Gemini agent skills that drive code standards, reviewing criteria, and development standards across the repository.
@@ -78,4 +78,3 @@ To correctly drive the Gemini agent working on this codebase, these files must b
   *(e.g., `/home/<username>/.gemini/config/skills/`)*
 
 Once in place, the IDE agent dynamically reads these markdown files to enforce database optimization, code cleanliness, test generation, and commit checks throughout the coding process.
-

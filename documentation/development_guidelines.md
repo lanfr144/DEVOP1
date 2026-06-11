@@ -1,4 +1,4 @@
-#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 # Antigravity Development Guidelines & Testing Policy
 
 As mandated by the DevOps architecture team, all tasks—past, present, and future—must adhere to strict professional standards regarding testing and validation.

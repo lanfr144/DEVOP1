@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 # Behavioral Instruction Manual & Code Standards: DEVOP1
 
 This file serves as the strict behavioral blueprint for the DEVOP1 system. Any AI agent (Antigravity) working on this codebase MUST adhere to these commands.
@@ -7,7 +9,7 @@ Every single source code, configuration, or scripting file generated MUST contai
 
 **For Python, Shell (.sh), YAML, and Markdown files:**
 ```text
-# ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+# ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
 ```
 
 ## 2. Git & Taiga Repository Synchronization (CRITICAL)

@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 ---
 name: test-generator
 description: Generates comprehensive unit and integration tests for code changes.

@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 ---
 name: doc-writer
 description: Maintains and updates documentation to ensure it stays perfectly synchronized with source code changes.

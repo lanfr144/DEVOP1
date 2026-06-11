@@ -1,4 +1,4 @@
-#ident @(#)$Format:PROJECT_NAME:FILE_NAME:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+#ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 FROM python:3.11-slim
 WORKDIR /app
 RUN apt-get update && apt-get install -y cron at && rm -rf /var/lib/apt/lists/*

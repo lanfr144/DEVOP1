@@ -1,4 +1,4 @@
-#ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 # 📖 Operations & Maintenance Manual: Project Antigravity (DEVOP1)
 
 This operations manual provides a unified guide for setup, port offsetting, testing, monitoring, backups, and deployment.

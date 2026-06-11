@@ -1,4 +1,4 @@
-#ident @(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 # 📋 Project Deployment & Maintenance Procedures
 
 This guide provides step-by-step instructions on configuring ports, deploying the containerized stack, creating database backups, and restoring system state.

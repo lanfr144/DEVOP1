@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 ---
 name: sql-optimizer
 description: Optimizes and secures SQL for MySQL, Oracle, and PostgreSQL, enforcing strict DBA standards.

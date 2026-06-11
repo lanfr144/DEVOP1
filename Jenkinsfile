@@ -1,4 +1,4 @@
-//ident @(#)$Format:DEVOP1:Jenkinsfile:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+//ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 pipeline {
     agent {
         kubernetes {

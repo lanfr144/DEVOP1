@@ -1,4 +1,4 @@
-#ident @(#)$Format:DEVOP1:kubernetes/manifests/airflow.yaml:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$
+#ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 apiVersion: v1
 kind: Service
 metadata:

@@ -1,3 +1,5 @@
+The current version is #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+
 ---
 name: code-review
 description: Reviews code changes for bugs, style issues, and best practices. Use when reviewing PRs or checking code quality.
