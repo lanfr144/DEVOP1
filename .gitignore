@@ -10,6 +10,7 @@
 *.tar.gz
 *.zip
 *.wbk
+*.swp
 .DS_Store
 .agent-backup/
 .agent/
