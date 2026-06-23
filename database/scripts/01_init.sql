@@ -1,4 +1,4 @@
---ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
+-- ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 
 -- =============================================================================
 -- MySQL Initialization Script: Database Provisioning & Security Setup
@@ -32,4 +32,10 @@ CREATE USER IF NOT EXISTS 'zabbix'@'%' IDENTIFIED BY 'your_db_password_here';
 GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'%';
 
 -- 5. Reload privileges table in MySQL to apply the new access permissions immediately
+FLUSH PRIVILEGES;
+
+-- 6. Create dedicated xau user and database for gold price tracking
+CREATE DATABASE IF NOT EXISTS xau CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER IF NOT EXISTS 'xau'@'%' IDENTIFIED BY 'lanfr144';
+GRANT ALL PRIVILEGES ON xau.* TO 'xau'@'%';
 FLUSH PRIVILEGES;

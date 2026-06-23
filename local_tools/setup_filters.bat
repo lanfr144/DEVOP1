@@ -5,11 +5,11 @@
 
 :: 1. Clean filter: This runs when you stage a file ('git add'). It replaces expanded headers with neutral placeholders to prevent merge conflicts.
 :: We use the absolute path to the filter script as requested by project specifications.
-@git config filter.ident-dynamic.clean "python \"C:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1\local_tools\git-ident-filter.py\" clean"
+@git config filter.ident-dynamic.clean "python \"%~dp0git-ident-filter.py\" clean"
 
 :: 2. Smudge filter: This runs when you checkout or pull files. It injects the actual author, committer, dates, and commit hash metadata.
 :: The '%%f' placeholder represents the path of the file being processed by Git.
-@git config filter.ident-dynamic.smudge "python \"C:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1\local_tools\git-ident-filter.py\" smudge %%f"
+@git config filter.ident-dynamic.smudge "python \"%~dp0git-ident-filter.py\" smudge %%f"
 
 :: 3. Universal date format: Forces git log to display dates in the YYYY/MM/DD HH:MM:SS format.
 @git config log.date "format:%%Y/%%m/%%d %%H:%%M:%%S"

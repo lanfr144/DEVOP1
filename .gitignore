@@ -38,3 +38,4 @@ scratch/*
 !scratch/*.py
 venv/
 vscode
+cours/

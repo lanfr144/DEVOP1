@@ -7,7 +7,7 @@ import sys
 # -----------------------------------------------------------------------------
 # STEP 1: DEFINE ROOT DIRECTORY AND PATHS
 # -----------------------------------------------------------------------------
-workspace = r"c:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1"
+workspace = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 report_path = os.path.join(workspace, "docs", "GHOST_FILES_REPORT.md")
 
 # -----------------------------------------------------------------------------

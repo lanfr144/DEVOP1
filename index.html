@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEVOP1 - Antigravity Documentation Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.35);
+      --accent: #10b981;
+      --text-main: #f8fafc;
+      --text-mute: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+    }
+
+    header {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: var(--text-mute);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary);
+      padding-left: 0.8rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .doc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .doc-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 12px 30px var(--primary-glow);
+    }
+
+    .doc-card:hover::before {
+      opacity: 1;
+    }
+
+    .doc-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #ffffff;
+    }
+
+    .doc-card p {
+      font-size: 0.95rem;
+      color: var(--text-mute);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.2rem;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #3b82f6;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Project Antigravity</h1>
+    <p>Unified Enterprise DevOps Telemetry & Operations Document Center (DEVOP1)</p>
+  </header>
+
+  <main>
+    <h2 class="section-title">📂 Root Overview Documents</h2>
+    <div class="grid-container">
+      <div class="doc-card">
+        <div>
+          <span class="badge">Master</span>
+          <h3>Project Specification</h3>
+          <p>Core overview, project goals, setup pipelines and directory indexes.</p>
+        </div>
+        <a href="Project.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Scope</span>
+          <h3>Project Description</h3>
+          <p>Context, target paradigms, telemetry scraping and storage scope.</p>
+        </div>
+        <a href="description.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Domain</span>
+          <h3>Domain Definition</h3>
+          <p>Financial scraper scope, database schemas and data validations rules.</p>
+        </div>
+        <a href="domainproject.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Agile</span>
+          <h3>Retro Planning Matrix</h3>
+          <p>Timelines, target milestones, sprint deliverables and retro logs.</p>
+        </div>
+        <a href="Retro_Planning.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Backlog</span>
+          <h3>Scrum User Stories</h3>
+          <p>Sprint tasks checklist, backlog mapping and user stories.</p>
+        </div>
+        <a href="User stories.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Design</span>
+          <h3>Streamlit Wireframes</h3>
+          <p>UI layout mockups, filters, tables and charts definition.</p>
+        </div>
+        <a href="Wireframes.pdf" class="btn">View Document</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">🛠️ Deployment & Maintenance Procedures</h2>
+    <div class="grid-container">
+      <div class="doc-card">
+        <div>
+          <span class="badge">Setup</span>
+          <h3>System Installation Guide</h3>
+          <p>Initial steps to register git filters, configure environment and boot compose stack.</p>
+        </div>
+        <a href="docs/Installation_Guide.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Virtualization</span>
+          <h3>WSL2 Deployment Spec</h3>
+          <p>Configuring network storage, non-root docker access and WSL instances configuration.</p>
+        </div>
+        <a href="docs/WSL_Deployment.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Virtualization</span>
+          <h3>VirtualBox Deploy Guide</h3>
+          <p>Creating Ubuntu VMs, host-only network configuration and storages setup.</p>
+        </div>
+        <a href="docs/Virtualbox_Deployment.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Virtualization</span>
+          <h3>Hyper-V Deploy Guide</h3>
+          <p>Creating Hyper-V virtual switch networks, storage mounts and IP allocation.</p>
+        </div>
+        <a href="docs/Hyper-V_Deployment.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Restore</span>
+          <h3>Backup & Restore Procedures</h3>
+          <p>Logical database dumping, configuration compression and automated scripts.</p>
+        </div>
+        <a href="docs/Backup_Procedure.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Recovery</span>
+          <h3>Disaster Recovery Plan</h3>
+          <p>RTO metrics, crash recovery, database schema recreation and node restoration.</p>
+        </div>
+        <a href="docs/disaster_recovery_plan.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Orchestration</span>
+          <h3>Distributed Deployment</h3>
+          <p>Full deployment walkthrough starting from a fresh PC with git access.</p>
+        </div>
+        <a href="docs/distributed_deployment.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Control</span>
+          <h3>Start & Stop Procedures</h3>
+          <p>Startup/shutdown sequences, restarting individual services and checking logs.</p>
+        </div>
+        <a href="docs/Start_Stop_Procedures.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Cleanup</span>
+          <h3>Uninstall Guide</h3>
+          <p>De-provisioning sequences, unsetting git filters, removing WSL and pruning volumes.</p>
+        </div>
+        <a href="docs/Uninstall_Guide.pdf" class="btn">View Document</a>
+      </div>
+    </div>
+
+    <h2 class="section-title">📊 Alerting & Monitoring Configuration</h2>
+    <div class="grid-container">
+      <div class="doc-card">
+        <div>
+          <span class="badge">Config</span>
+          <h3>Webhook & Email Settings</h3>
+          <p>How to change Discord/Teams webhooks, email destinations, and toggle alert routes.</p>
+        </div>
+        <a href="docs/How_to_change_webhooks_and_emails.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Monitoring</span>
+          <h3>Zabbix Telemetry Setup</h3>
+          <p>Custom active traps setup, trigger thresholds and SNMP alert rules.</p>
+        </div>
+        <a href="docs/zabbix_monitoring.pdf" class="btn">View Document</a>
+      </div>
+      <div class="doc-card">
+        <div>
+          <span class="badge">Debugging</span>
+          <h3>Logs Information Guide</h3>
+          <p>Where logs are written, extraction commands, and scheduling cron status checks.</p>
+        </div>
+        <a href="docs/Logs_information.pdf" class="btn">View Document</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

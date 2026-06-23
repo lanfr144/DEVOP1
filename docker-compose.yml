@@ -44,7 +44,7 @@ services:
       - _AIRFLOW_WWW_USER_CREATE=true
       - _AIRFLOW_WWW_USER_USERNAME=admin
       - _AIRFLOW_WWW_USER_PASSWORD=admin
-      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography
+      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography requests pandas mysql-connector-python python-dotenv
     command: version
     networks:
       - devop1-network
@@ -59,13 +59,14 @@ services:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=mysql+pymysql://${DB_USER}:${DB_PASSWORD}@db/airflow_db
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__LOAD_EXAMPLES=false
-      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography
+      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography requests pandas mysql-connector-python python-dotenv
     ports:
       - "${AIRFLOW_PORT}:8080"
     volumes:
       - ./app/dags:/opt/airflow/dags
       - ./app/logs:/opt/airflow/logs
       - ./app/plugins:/opt/airflow/plugins
+      - ./XAU:/opt/airflow/XAU
     command: webserver
     networks:
       - devop1-network
@@ -80,11 +81,12 @@ services:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=mysql+pymysql://${DB_USER}:${DB_PASSWORD}@db/airflow_db
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__CORE__LOAD_EXAMPLES=false
-      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography
+      - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography requests pandas mysql-connector-python python-dotenv
     volumes:
       - ./app/dags:/opt/airflow/dags
       - ./app/logs:/opt/airflow/logs
       - ./app/plugins:/opt/airflow/plugins
+      - ./XAU:/opt/airflow/XAU
     command: scheduler
     networks:
       - devop1-network

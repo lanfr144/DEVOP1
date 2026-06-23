@@ -14,11 +14,19 @@ import sys
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(__file__), '../.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
 # Retrieve the webhook integration URL from environment variables
 DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 def send_notification(message):
     """Posts a message to the configured Discord channel webhook."""
+    if os.getenv("ENABLE_DISCORD", "true").lower() != "true":
+        print("⏭️ Discord alerts are disabled (ENABLE_DISCORD is false). Bypassing.")
+        return
+
     if not DISCORD_WEBHOOK_URL:
         print("❌ DISCORD_WEBHOOK_URL is not set.")
         sys.exit(1)

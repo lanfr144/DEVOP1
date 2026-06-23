@@ -1,2 +1,8 @@
 #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$"
 Flask==3.0.0
+requests
+mysql-connector-python
+pandas
+python-dotenv
+cryptography
+pymysql

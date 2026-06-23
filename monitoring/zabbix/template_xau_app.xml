@@ -1,0 +1,51 @@
+<!-- #ident "@(#)$Format:LocalFoodAI:app.py:%an:%ae:%ad:%cn:%ce:%cd:%H:%D:%N$" -->
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <date>2026-06-23T18:00:00Z</date>
+    <template_groups>
+        <template_group>
+            <uuid>7df96b18c230490a982ed95e407dbcf4</uuid>
+            <name>Templates/Applications</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>a12b3c4d5e6f7a8b9c0d1e2f3a4b5c6d</uuid>
+            <template>Template XAU Application</template>
+            <name>Template XAU Application</name>
+            <groups>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>e12b3c4d5e6f7a8b9c0d1e2f3a4b5c6d</uuid>
+                    <name>XAU Application Error</name>
+                    <type>TRAPPER</type>
+                    <key>xau.error</key>
+                    <value_type>TEXT</value_type>
+                    <description>Receives error messages sent from the XAU gold tracking application.</description>
+                </item>
+                <item>
+                    <uuid>f12b3c4d5e6f7a8b9c0d1e2f3a4b5c6d</uuid>
+                    <name>XAU Application Trace</name>
+                    <type>TRAPPER</type>
+                    <key>xau.trace</key>
+                    <value_type>TEXT</value_type>
+                    <description>Receives informational execution traces from the XAU gold tracking application.</description>
+                </item>
+            </items>
+            <triggers>
+                <trigger>
+                    <uuid>b12b3c4d5e6f7a8b9c0d1e2f3a4b5c6d</uuid>
+                    <expression>length(last(/Template XAU Application/xau.error))&gt;0</expression>
+                    <name>XAU Application Alert: Error reported</name>
+                    <priority>HIGH</priority>
+                    <description>Fires when get_gold_price.py or load_xau.py report errors to Zabbix.</description>
+                </trigger>
+            </triggers>
+        </template>
+    </templates>
+</zabbix_export>

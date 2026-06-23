@@ -29,5 +29,4 @@ COPY . .
 # Expose port 5000 to the container network for Flask routing
 EXPOSE 5000
 
-# Start cron and at system daemons, then execute the Flask server app.py
-CMD service cron start && service atd start && python app.py
+CMD printf "7,37 * * * * python /app/XAU/get_gold_price.py >> /app/logs/xau_cron.log 2>&1\n10,40 * * * * python /app/XAU/load_xau.py >> /app/logs/xau_cron.log 2>&1\n" | crontab - && service cron start && service atd start && python app.py
