@@ -71,6 +71,7 @@ services:
       - ./app/logs:/opt/airflow/logs
       - ./app/plugins:/opt/airflow/plugins
       - ./XAU:/opt/airflow/XAU
+      - ./.env:/opt/airflow/.env
     command: webserver
     networks:
       - devop1-network
@@ -91,6 +92,7 @@ services:
       - ./app/logs:/opt/airflow/logs
       - ./app/plugins:/opt/airflow/plugins
       - ./XAU:/opt/airflow/XAU
+      - ./.env:/opt/airflow/.env
     command: scheduler
     networks:
       - devop1-network
