@@ -2,7 +2,7 @@
 # scratch/find_passwords.py
 import os
 
-workspace = r"c:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1"
+workspace = r"c:\Users\your_windows_user_here\Documents\DEVOP1\antigravity\DEVOP1"
 
 def load_env_targets():
     """Parses .env to dynamically extract passwords and webhook URLs to search for."""

@@ -26,7 +26,7 @@ graph TD
         end
         
         subgraph Bottom Margin Area [Bottom Margin: Y=806 to Y=842]
-            L_Foot["Left Footer: ferro988 / lanfr144<br/>X=48, Y=820"]
+            L_Foot["Left Footer: ferro988 / your_windows_user_here<br/>X=48, Y=820"]
             M_Foot["Middle Footer: Page X of Y<br/>X=Centered, Y=820"]
             R_Foot["Right Footer: DEVOP1<br/>X=width-48-width, Y=820"]
         end

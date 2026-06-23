@@ -30,7 +30,7 @@ When you open this project in VS Code, you will see a prompt recommending the wo
 Clone the repository and switch to the active development branch:
 ```bash
 # Clone the repository
-git clone https://github.com/lanfr144/DEVOP1.git
+git clone https://github.com/your_windows_user_here/DEVOP1.git
 cd DEVOP1
 
 # Check out the active development branch

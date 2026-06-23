@@ -69,7 +69,7 @@ Use this template to model administrators and developers interacting with the De
 The following user stories define the development roadmap for Project Antigravity:
 
 - **TG-101**: As a DevOps Engineer, I want to deploy the MySQL schema automatically on startup so that I have a clean DB state.
-- **TG-105**: As an Administrator, I want to configure port offsets so that I avoid conflicts with local databases.
+- **TG-105**: As an your_admin_user_hereistrator, I want to configure port offsets so that I avoid conflicts with local databases.
 - **TG-106**: As an Auditor, I want to compile the documentation to PDF so that I can verify the requirements.
 """,
 
@@ -167,7 +167,7 @@ This procedure details the deployment of DEVOP1 onto a fresh virtual/physical co
 1. **Install Prerequisites**: Ensure Git, Docker, and Docker Compose v2 are installed.
 2. **Clone the repository**:
    ```bash
-   git clone https://github.com/lanfr144/DEVOP1.git
+   git clone https://github.com/your_windows_user_here/DEVOP1.git
    cd DEVOP1
    ```
 3. **Setup environment**:
@@ -394,7 +394,7 @@ List of access portals and ports configured inside the project stack:
 
 - **Flask Backend API**: `http://localhost:6000`
 - **Airflow Portal**: `http://localhost:9080` (Credentials: `admin` / `admin`)
-- **Zabbix Web UI**: `http://localhost:9081` (Credentials: `Admin` / `zabbix`)
+- **Zabbix Web UI**: `http://localhost:9081` (Credentials: `your_admin_user_here` / `zabbix`)
 - **Jenkins CI-CD**: `http://localhost:9088`
 - **MySQL DB Connection**: `localhost:4306`
 """,
@@ -404,7 +404,7 @@ List of access portals and ports configured inside the project stack:
 
 Personas interacting with the DEVOP1 telemetry pipeline.
 
-## 🖥️ Persona: Roni - Systems Admin
+## 🖥️ Persona: Roni - Systems your_admin_user_here
 - **Goal**: Needs to monitor disk, CPU, and database health of scrapers.
 - **Usage**: Accesses Zabbix on `http://localhost:9081` and views telemetry logs.
 """,

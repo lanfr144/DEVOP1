@@ -24,7 +24,7 @@ To initialize a new file, place the clean version at the top of your file (legib
 For tracked files, the Git smudge filter (`ident-dynamic`) will automatically expand the placeholder variables with real Git commit and author/committer data during checkouts. Untracked or ignored scratch files must still physically carry this header comment as a repository consistency requirement.
 
 ## 2. Git & Taiga Repository Synchronization (CRITICAL)
-The Git repository "https://github.com/lanfr144/DEVOP1" and the Taiga repository "https://tree.taiga.io/project/ferro988-devop1/timeline" must be kept in sync with the project at all times!
+The Git repository "https://github.com/your_windows_user_here/DEVOP1" and the Taiga repository "https://tree.taiga.io/project/ferro988-devop1/timeline" must be kept in sync with the project at all times!
 No changes to project files are allowed without:
 1. Creating a corresponding task in the Taiga repository.
 2. Updating the task status accordingly.

@@ -3,6 +3,6 @@
 
 Personas interacting with the DEVOP1 telemetry pipeline.
 
-## 🖥️ Persona: Roni - Systems Admin
+## 🖥️ Persona: Roni - Systems your_admin_user_here
 - **Goal**: Needs to monitor disk, CPU, and database health of scrapers.
 - **Usage**: Accesses Zabbix on `http://localhost:9081` and views telemetry logs.

@@ -2,7 +2,7 @@
 import os
 import subprocess
 
-workspace = r"c:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1"
+workspace = r"c:\Users\your_windows_user_here\Documents\DEVOP1\antigravity\DEVOP1"
 
 def check():
     unsmudged = []

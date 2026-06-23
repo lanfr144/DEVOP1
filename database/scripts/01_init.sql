@@ -36,6 +36,6 @@ FLUSH PRIVILEGES;
 
 -- 6. Create dedicated xau user and database for gold price tracking
 CREATE DATABASE IF NOT EXISTS xau CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER IF NOT EXISTS 'xau'@'%' IDENTIFIED BY 'lanfr144';
+CREATE USER IF NOT EXISTS 'xau'@'%' IDENTIFIED BY 'your_windows_user_here';
 GRANT ALL PRIVILEGES ON xau.* TO 'xau'@'%';
 FLUSH PRIVILEGES;

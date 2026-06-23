@@ -7,7 +7,7 @@ This procedure details the deployment of DEVOP1 onto a fresh virtual/physical co
 1. **Install Prerequisites**: Ensure Git, Docker, and Docker Compose v2 are installed.
 2. **Clone the repository**:
    ```bash
-   git clone https://github.com/lanfr144/DEVOP1.git
+   git clone https://github.com/your_windows_user_here/DEVOP1.git
    cd DEVOP1
    ```
 3. **Setup environment**:

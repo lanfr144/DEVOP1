@@ -7,7 +7,7 @@ This guide provides step-by-step instructions for deploying the containerized de
 
 ## 🛠️ Step 1: Install and Initialize a New WSL Distribution
 
-1. **Open PowerShell as Administrator** on your Windows host.
+1. **Open PowerShell as your_admin_user_hereistrator** on your Windows host.
 2. **Install a new Ubuntu distribution** (Ubuntu 22.04 LTS is highly recommended):
    ```powershell
    wsl --install -d Ubuntu-22.04
@@ -68,7 +68,7 @@ We install Docker Engine directly on the WSL distribution to manage containers w
 
 1. **Clone the repository** into your home folder inside WSL:
    ```bash
-   git clone https://github.com/lanfr144/DEVOP1.git ~/DEVOP1
+   git clone https://github.com/your_windows_user_here/DEVOP1.git ~/DEVOP1
    cd ~/DEVOP1
    ```
 2. **Run the Git Filter Setup Script**:
@@ -116,5 +116,5 @@ Once the stack is running, you can access the applications on the host Windows b
 
 * **Web Backend API**: `http://localhost:6000` (Version & Git ID meta info)
 * **Apache Airflow Dashboard**: `http://localhost:9080` (Credentials: `admin`/`admin`)
-* **Zabbix Web UI**: `http://localhost:9081` (Credentials: `Admin`/`zabbix`)
+* **Zabbix Web UI**: `http://localhost:9081` (Credentials: `your_admin_user_here`/`zabbix`)
 * **MySQL Database Service**: Host `127.0.0.1`, Port `4306` (Credentials from `.env`)

@@ -3,8 +3,8 @@ import zipfile
 import xml.etree.ElementTree as ET
 import os
 
-docx_path = r"C:\Users\lanfr144\Documents\DEVOP1\COURS\download\DEVOP1 - Project terms.docx"
-output_path = r"c:\Users\lanfr144\Documents\DEVOP1\antigravity\DEVOP1\scratch\document_text.txt"
+docx_path = r"C:\Users\your_windows_user_here\Documents\DEVOP1\COURS\download\DEVOP1 - Project terms.docx"
+output_path = r"c:\Users\your_windows_user_here\Documents\DEVOP1\antigravity\DEVOP1\scratch\document_text.txt"
 
 def read_docx(path):
     if not os.path.exists(path):

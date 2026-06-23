@@ -26,7 +26,7 @@ graph TD
         end
         
         subgraph Bottom Margin Boxes
-            BottomLeft["@bottom-left Box<br/>(User ID: ferro988 / lanfr144)"]
+            BottomLeft["@bottom-left Box<br/>(User ID: ferro988 / your_windows_user_here)"]
             BottomCenter["@bottom-center Box<br/>(Page X of Y)"]
             BottomRight["@bottom-right Box<br/>(Project: DEVOP1)"]
         end
@@ -72,7 +72,7 @@ To implement the Gemini standard paged layout, include the following CSS rules i
     }
     
     @bottom-left {
-        content: "lanfr144";
+        content: "your_windows_user_here";
         font-family: 'Helvetica', sans-serif;
         font-size: 8pt;
         color: #808080;

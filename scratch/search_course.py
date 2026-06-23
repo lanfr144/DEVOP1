@@ -2,7 +2,7 @@
 import os
 import re
 
-download_dir = r"C:\Users\lanfr144\Documents\DEVOP1\COURS\download"
+download_dir = r"C:\Users\your_windows_user_here\Documents\DEVOP1\COURS\download"
 keywords = ["kubernetes", "k8s", "swarm", "airflow", "zabbix", "grafana", "prometheus", "influxdb", "uptime kuma", "jenkins", "mysql", "postgresql", "flask", "django"]
 
 def search_files():

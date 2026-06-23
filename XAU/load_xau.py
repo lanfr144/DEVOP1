@@ -47,7 +47,7 @@ def load_data(filename):
     host = os.getenv("DATABASE_HOST") or os.getenv("XAU_DB_HOST") or "localhost"
     port = int(os.getenv("MYSQL_PORT") or 3306) if host in ["localhost", "127.0.0.1"] else 3306
     user = os.getenv("XAU_DB_USER") or os.getenv("DB_USER") or "xau"
-    password = os.getenv("XAU_DB_PASSWORD") or os.getenv("DB_PASSWORD") or "lanfr144"
+    password = os.getenv("XAU_DB_PASSWORD") or os.getenv("DB_PASSWORD") or "your_windows_user_here"
     database = os.getenv("XAU_DB_NAME") or os.getenv("DB_NAME") or "xau"
 
     conn = None

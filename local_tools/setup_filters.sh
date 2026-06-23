@@ -4,10 +4,10 @@
 
 # 1. Clean filter: Standardizes expansion headers to placeholder formats before code commits.
 # Uses absolute path format as specified.
-git config filter.ident-dynamic.clean "python3 \"C:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/local_tools/git-ident-filter.py\" clean"
+git config filter.ident-dynamic.clean "python3 \"C:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/local_tools/git-ident-filter.py\" clean"
 
 # 2. Smudge filter: Replaces metadata placeholders on checkouts with actual author/committer data.
-git config filter.ident-dynamic.smudge "python3 \"C:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/local_tools/git-ident-filter.py\" smudge %f"
+git config filter.ident-dynamic.smudge "python3 \"C:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/local_tools/git-ident-filter.py\" smudge %f"
 
 # 3. Universal date format for git logs: sets date formatting.
 git config log.date "format:%Y/%m/%d %H:%M:%S"

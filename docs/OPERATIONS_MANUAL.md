@@ -22,7 +22,7 @@ The repository utilizes a cascading branching model:
 ### Step 2.1: Clone and Check Out
 ```bash
 # Clone the repository
-git clone https://github.com/lanfr144/DEVOP1.git
+git clone https://github.com/your_windows_user_here/DEVOP1.git
 cd DEVOP1
 
 # Ensure you are on the active development branch
@@ -43,7 +43,7 @@ DB_PASSWORD=your_db_password_here
 
 # Taiga Project Credentials
 TAIGA_API_URL=https://api.taiga.io/api/v1
-TAIGA_USERNAME=lanfr144
+TAIGA_USERNAME=your_windows_user_here
 TAIGA_PASSWORD=YOUR_PASSWORD
 TAIGA_PROJECT_ID=1785465
 
@@ -185,7 +185,7 @@ This provisions:
 - Jenkins Master workspace with persistent volume storage (`jenkins.yaml`).
 
 ### 8.2 Declarative CI/CD Pipelines
-The [Jenkinsfile](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/Jenkinsfile) in the root of the repository automates the pipeline steps:
+The [Jenkinsfile](file:///c:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/Jenkinsfile) in the root of the repository automates the pipeline steps:
 1. **Pull Code:** Checks out the latest codebase from GitHub.
 2. **Build Docker Images:** Builds optimized Docker images for components.
 3. **Run Tests:** Runs unit and integration test scripts.

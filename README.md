@@ -285,9 +285,9 @@ i d e n t   " @ ( # ) $ F o r m a t : { p r o j e c t _ n a m e } : { f i l e _ 
 
 ## 🗃️ 9. Project Operations & Setup Manuals
 
-* **[Deployment & Operations Manual](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/OPERATIONS_MANUAL.md):** The primary operational document detailing dynamic port offsetting, local setup, database backup/restores, and Kubernetes instructions.
-* **[Gemini Skills Setup Guide](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/GEMINI_SKILLS_SETUP.md):** Explains how to place and configure Gemini agent skills to enforce development standards.
-* **[Taiga Project State Export](file:///c:/Users/lanfr144/Documents/DEVOP1/antigravity/DEVOP1/docs/taiga_export.json):** The JSON database snapshot showing the fully closed state of the Agile boards, stories, and tasks.
+* **[Deployment & Operations Manual](file:///c:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/docs/OPERATIONS_MANUAL.md):** The primary operational document detailing dynamic port offsetting, local setup, database backup/restores, and Kubernetes instructions.
+* **[Gemini Skills Setup Guide](file:///c:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/docs/GEMINI_SKILLS_SETUP.md):** Explains how to place and configure Gemini agent skills to enforce development standards.
+* **[Taiga Project State Export](file:///c:/Users/your_windows_user_here/Documents/DEVOP1/antigravity/DEVOP1/docs/taiga_export.json):** The JSON database snapshot showing the fully closed state of the Agile boards, stories, and tasks.
 
 # DevOps Course Knowledge Base
 
