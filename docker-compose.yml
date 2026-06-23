@@ -14,6 +14,10 @@ services:
       - db
     networks:
       - devop1-network
+    volumes:
+      - ./XAU:/app/XAU
+      - ./app/logs:/app/logs
+      - ./.env:/app/.env
 
   db:
     image: mysql:8.0
