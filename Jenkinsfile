@@ -53,6 +53,7 @@ spec:
             steps {
                 container('kubectl') {
                     sh 'kubectl apply -f kubernetes/manifests/'
+                    sh 'kubectl rollout restart deployment backend'
                 }
             }
         }
