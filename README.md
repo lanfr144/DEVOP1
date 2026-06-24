@@ -49,7 +49,8 @@ graph TD
         
         subgraph Workloads [Application Deployments]
             WebApp[Web App Pods <br> Flask / React]:::k8s
-            LB[Load Balancer <br> MetalLB / NGINX]:::k8s
+            LB[Load Balancer]:::k8s
+            %% Note: MetalLB and NGINX are not used currently.
         end
     end
 

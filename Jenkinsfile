@@ -25,6 +25,9 @@ spec:
 '''
         }
     }
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
     stages {
         stage('Pull Code') {
             steps {
@@ -44,6 +47,9 @@ spec:
             }
         }
         stage('Deploy to Kubernetes') {
+            when {
+                branch 'production'
+            }
             steps {
                 container('kubectl') {
                     sh 'kubectl apply -f kubernetes/manifests/'

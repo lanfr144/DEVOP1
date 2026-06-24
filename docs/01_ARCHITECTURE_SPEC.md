@@ -14,9 +14,9 @@ The system is a containerized, cloud-native web application deployed across a hi
 | **Backend API** | Flask / Node.js | Backend logic connecting UI to the database. |
 | **Database** | MySQL 8.0 | Relational engine. Populated via Python SQLAlchemy as per DEVOP1 Part 4. |
 | **Orchestration** | K3s (Kubernetes) | Lightweight K8s distribution optimized for mixed local VM/bare-metal environments. |
-| **Load Balancing** | MetalLB & NGINX | Bare-metal load balancer allowing external access and routing traffic to healthy nodes. |
+| **Load Balancing** | Kubernetes Service | Bare-metal load balancer allowing external access and routing traffic to healthy nodes. <!-- Removed MetalLB & NGINX as they are not used --> |
 | **Distributed Storage** | Longhorn | Creates a highly available virtual SAN using local node disks to ensure persistent data replication for MySQL and Zabbix if a node fails. |
-| **CI/CD Automation** | Jenkins | Runs as a K8s pod, dynamically provisioning agents to build/push Docker images and deploy via Helm. |
+| **CI/CD Automation** | Jenkins | Runs as a K8s pod, dynamically provisioning agents to build/push Docker images and deploy. <!-- Removed Helm reference as it is not used --> |
 | **Monitoring** | Zabbix | Real-time system health monitoring. Alerts are routed to Email, Discord, and Teams. |
 | **Agile Tracking** | Taiga | Integrated with Git webhooks for sprint tracking. |
 
