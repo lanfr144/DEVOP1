@@ -595,10 +595,7 @@ def compile_all_documents():
     print("[SUCCESS] PDF compilation sequence completed!")
 
     print("Starting compilation of Word DOCX documents...")
-    docx_mappings = {
-        "docs/Submission_Requirements.md": "docs/Submission_Requirements.docx",
-        "README.md": "Readme.docx"
-    }
+    docx_mappings = {md: pdf.replace('.pdf', '.docx') for md, pdf in target_mappings.items()}
     for md_rel, docx_rel in docx_mappings.items():
         md_abs = os.path.join(workspace, md_rel.replace("/", os.sep))
         docx_abs = os.path.join(workspace, docx_rel.replace("/", os.sep))
