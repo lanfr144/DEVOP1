@@ -407,7 +407,9 @@ def compile_all_documents():
         "docs/Hyper-V_Deployment.md": "docs/Hyper-V_Deployment.pdf",
         "docs/zabbix_monitoring.md": "docs/zabbix_monitoring.pdf",
         "docs/Logs_information.md": "docs/Logs_information.pdf",
-        "docs/How_to_change_webhooks_and_emails.md": "docs/How_to_change_webhooks_and_emails.pdf"
+        "docs/How_to_change_webhooks_and_emails.md": "docs/How_to_change_webhooks_and_emails.pdf",
+        "docs/Submission_Requirements.md": "docs/Submission_Requirements.pdf",
+        "README.md": "Readme.pdf"
     }
 
     print("Starting compilation of all system documents to PDF...")
