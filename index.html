@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DEVOP1 - Antigravity Documentation Portal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
+      --bg-color: #0b0f19;
+      --card-bg: rgba(17, 24, 39, 0.7);
       --card-border: rgba(255, 255, 255, 0.08);
       --primary: #3b82f6;
-      --primary-glow: rgba(59, 130, 246, 0.35);
+      --primary-glow: rgba(59, 130, 246, 0.2);
       --accent: #10b981;
-      --text-main: #f8fafc;
-      --text-mute: #94a3b8;
+      --text-main: #f3f4f6;
+      --text-mute: #9ca3af;
+      --sidebar-width: 320px;
     }
 
     * {
@@ -29,63 +30,170 @@
       font-family: 'Outfit', sans-serif;
       overflow-x: hidden;
       min-height: 100vh;
-      background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+      display: flex;
+      background-image: 
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 35%),
+        radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.12) 0%, transparent 35%);
     }
 
-    header {
-      padding: 3rem 2rem;
-      text-align: center;
-      border-bottom: 1px solid var(--card-border);
-      backdrop-filter: blur(10px);
+    /* Sidebar Navigation Layout */
+    aside {
+      width: var(--sidebar-width);
+      background: rgba(17, 24, 39, 0.95);
+      border-right: 1px solid var(--card-border);
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      z-index: 100;
+      backdrop-filter: blur(20px);
     }
 
-    h1 {
+    .brand {
+      margin-bottom: 2rem;
+    }
+
+    .brand h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 3rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
       background: linear-gradient(135deg, #3b82f6, #10b981);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    header p {
-      font-size: 1.1rem;
+    .brand p {
+      font-size: 0.85rem;
       color: var(--text-mute);
-      max-width: 600px;
-      margin: 0 auto;
+      margin-top: 0.25rem;
     }
 
+    /* System Stats Counter */
+    .system-status {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .status-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-label {
+      color: var(--text-mute);
+    }
+
+    .status-value {
+      font-weight: 600;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      margin-right: 6px;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    /* Navigation Menu */
+    nav {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      color: var(--text-mute);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s;
+      border: 1px solid transparent;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    /* Search Bar */
+    .search-container {
+      margin-top: auto;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Main Content Layout */
     main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
+      padding: 3rem 4rem;
+      max-width: 1600px;
     }
 
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-bottom: 2rem;
       border-left: 4px solid var(--primary);
-      padding-left: 0.8rem;
+      padding-left: 1rem;
       display: flex;
       align-items: center;
     }
 
+    /* Cards Grid */
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 4rem;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 2rem;
+      margin-bottom: 5rem;
     }
 
     .doc-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.8rem;
+      border-radius: 20px;
+      padding: 2rem;
       backdrop-filter: blur(12px);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
@@ -108,9 +216,9 @@
     }
 
     .doc-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: rgba(59, 130, 246, 0.4);
-      box-shadow: 0 12px 30px var(--primary-glow);
+      box-shadow: 0 15px 35px var(--primary-glow);
     }
 
     .doc-card:hover::before {
@@ -119,7 +227,8 @@
 
     .doc-card h3 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      font-weight: 700;
       margin-bottom: 0.8rem;
       color: #ffffff;
     }
@@ -127,208 +236,433 @@
     .doc-card p {
       font-size: 0.95rem;
       color: var(--text-mute);
-      line-height: 1.5;
-      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
       flex-grow: 1;
     }
 
+    /* Action Buttons Box */
+    .btn-group {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: auto;
+    }
+
     .btn {
+      flex: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.75rem 1.2rem;
-      background: rgba(59, 130, 246, 0.15);
+      padding: 0.8rem 1rem;
+      background: rgba(59, 130, 246, 0.1);
       border: 1px solid rgba(59, 130, 246, 0.3);
-      color: #3b82f6;
-      border-radius: 8px;
+      color: #60a5fa;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transition: all 0.3s;
-      gap: 0.5rem;
+      gap: 0.4rem;
     }
 
     .btn:hover {
       background: var(--primary);
       color: #ffffff;
       box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+      border-color: transparent;
+    }
+
+    .btn.btn-accent {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34d399;
+    }
+
+    .btn.btn-accent:hover {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      border-color: transparent;
     }
 
     .badge {
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       font-weight: bold;
       color: var(--accent);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       display: inline-block;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Smooth Scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Dynamic fade elements */
+    .fade-out {
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
+      position: absolute;
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      aside {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--card-border);
+      }
+      body {
+        flex-direction: column;
+      }
+      main {
+        margin-left: 0;
+        padding: 2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Project Antigravity</h1>
-    <p>Unified Enterprise DevOps Telemetry & Operations Document Center (DEVOP1)</p>
-  </header>
+  <aside>
+    <div class="brand">
+      <h1>Project Antigravity</h1>
+      <p>Telemetry & Operations Portal (DEVOP1)</p>
+    </div>
+
+    <div class="system-status">
+      <div class="status-item">
+        <span class="status-label">Pipeline Status</span>
+        <span class="status-value"><span class="status-dot"></span>Active</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Release Version</span>
+        <span class="status-value">DEVOP1_20260624</span>
+      </div>
+      <div class="status-item">
+        <span class="status-label">Total Documents</span>
+        <span class="status-value" id="doc-counter">22</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#overview" class="nav-link active" onclick="setActiveLink(this)">📂 Overview Manuals</a>
+      <a href="#deployment" class="nav-link" onclick="setActiveLink(this)">🛠️ Deploy & Run Manuals</a>
+      <a href="#monitoring" class="nav-link" onclick="setActiveLink(this)">📊 Telemetry & Alerts</a>
+    </nav>
+
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search manuals..." onkeyup="filterManuals(this.value)">
+    </div>
+  </aside>
 
   <main>
-    <h2 class="section-title">📂 Root Overview Documents</h2>
-    <div class="grid-container">
-      <div class="doc-card">
-        <div>
-          <span class="badge">Master</span>
-          <h3>Project Specification</h3>
-          <p>Core overview, project goals, setup pipelines and directory indexes.</p>
+    <section id="overview">
+      <h2 class="section-title">📂 Root Overview Documents</h2>
+      <div class="grid-container">
+        <div class="doc-card" data-title="project specification master overview" data-desc="core overview project goals setup pipelines and directory indexes">
+          <div>
+            <span class="badge">Master</span>
+            <h3>Project Specification</h3>
+            <p>Core overview, project goals, setup pipelines and directory indexes.</p>
+          </div>
+          <div class="btn-group">
+            <a href="Project.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="Project.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Scope</span>
-          <h3>Project Description</h3>
-          <p>Context, target paradigms, telemetry scraping and storage scope.</p>
+        <div class="doc-card" data-title="project description scope context" data-desc="context target paradigms telemetry scraping and storage scope">
+          <div>
+            <span class="badge">Scope</span>
+            <h3>Project Description</h3>
+            <p>Context, target paradigms, telemetry scraping and storage scope.</p>
+          </div>
+          <div class="btn-group">
+            <a href="description.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="description.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Domain</span>
-          <h3>Domain Definition</h3>
-          <p>Financial scraper scope, database schemas and data validations rules.</p>
+        <div class="doc-card" data-title="domain project definition schemas" data-desc="financial scraper scope database schemas and data validations rules">
+          <div>
+            <span class="badge">Domain</span>
+            <h3>Domain Definition</h3>
+            <p>Financial scraper scope, database schemas and data validations rules.</p>
+          </div>
+          <div class="btn-group">
+            <a href="domainproject.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="domainproject.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Agile</span>
-          <h3>Retro Planning Matrix</h3>
-          <p>Timelines, target milestones, sprint deliverables and retro logs.</p>
+        <div class="doc-card" data-title="master retro planning timelines milestones" data-desc="timelines target milestones sprint deliverables and retro logs">
+          <div>
+            <span class="badge">Agile</span>
+            <h3>Retro Planning Matrix</h3>
+            <p>Timelines, target milestones, sprint deliverables and retro logs.</p>
+          </div>
+          <div class="btn-group">
+            <a href="Retro_Planning.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="Retro_Planning.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Backlog</span>
-          <h3>Scrum User Stories</h3>
-          <p>Sprint tasks checklist, backlog mapping and user stories.</p>
+        <div class="doc-card" data-title="scrum user stories backlog tasks checklist" data-desc="sprint tasks checklist backlog mapping and user stories">
+          <div>
+            <span class="badge">Backlog</span>
+            <h3>Scrum User Stories</h3>
+            <p>Sprint tasks checklist, backlog mapping and user stories.</p>
+          </div>
+          <div class="btn-group">
+            <a href="User stories.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="User stories.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Design</span>
-          <h3>Streamlit Wireframes</h3>
-          <p>UI layout mockups, filters, tables and charts definition.</p>
+        <div class="doc-card" data-title="streamlit dashboard wireframes design ui" data-desc="ui layout mockups filters tables and charts definition using mermaid">
+          <div>
+            <span class="badge">Design</span>
+            <h3>Streamlit Wireframes</h3>
+            <p>UI layout mockups, filters, tables and charts definition using Mermaid.</p>
+          </div>
+          <div class="btn-group">
+            <a href="Wireframes.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="Wireframes.pdf" class="btn">View Document</a>
       </div>
-    </div>
+    </section>
 
-    <h2 class="section-title">🛠️ Deployment & Maintenance Procedures</h2>
-    <div class="grid-container">
-      <div class="doc-card">
-        <div>
-          <span class="badge">Setup</span>
-          <h3>System Installation Guide</h3>
-          <p>Initial steps to register git filters, configure environment and boot compose stack.</p>
+    <section id="deployment">
+      <h2 class="section-title">🛠️ Deployment & Maintenance Procedures</h2>
+      <div class="grid-container">
+        <div class="doc-card" data-title="system installation guide docker compose setup" data-desc="initial steps to register git filters configure environment and boot compose stack">
+          <div>
+            <span class="badge">Setup</span>
+            <h3>System Installation Guide</h3>
+            <p>Initial steps to register git filters, configure environment and boot compose stack.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Installation_Guide.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Installation_Guide.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Virtualization</span>
-          <h3>WSL2 Deployment Spec</h3>
-          <p>Configuring network storage, non-root docker access and WSL instances configuration.</p>
+        <div class="doc-card" data-title="wsl2 deployment spec virtualization" data-desc="configuring network storage non root docker access and wsl instances configuration">
+          <div>
+            <span class="badge">Virtualization</span>
+            <h3>WSL2 Deployment Spec</h3>
+            <p>Configuring network storage, non-root docker access and WSL instances configuration.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/WSL_Deployment.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/WSL_Deployment.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Virtualization</span>
-          <h3>VirtualBox Deploy Guide</h3>
-          <p>Creating Ubuntu VMs, host-only network configuration and storages setup.</p>
+        <div class="doc-card" data-title="virtualbox deployment guide virtualization" data-desc="creating ubuntu vms host only network configuration and storages setup">
+          <div>
+            <span class="badge">Virtualization</span>
+            <h3>VirtualBox Deploy Guide</h3>
+            <p>Creating Ubuntu VMs, host-only network configuration and storages setup.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Virtualbox_Deployment.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Virtualbox_Deployment.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Virtualization</span>
-          <h3>Hyper-V Deploy Guide</h3>
-          <p>Creating Hyper-V virtual switch networks, storage mounts and IP allocation.</p>
+        <div class="doc-card" data-title="hyper v deploy guide virtualization mac settings" data-desc="creating hyper v virtual switch networks storage mounts and ip allocation">
+          <div>
+            <span class="badge">Virtualization</span>
+            <h3>Hyper-V Deploy Guide</h3>
+            <p>Creating Hyper-V virtual switch networks, storage mounts and IP allocation.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Hyper-V_Deployment.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Hyper-V_Deployment.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Restore</span>
-          <h3>Backup & Restore Procedures</h3>
-          <p>Logical database dumping, configuration compression and automated scripts.</p>
+        <div class="doc-card" data-title="backup restore procedures database dumping" data-desc="logical database dumping configuration compression and automated scripts">
+          <div>
+            <span class="badge">Restore</span>
+            <h3>Backup & Restore Procedures</h3>
+            <p>Logical database dumping, configuration compression and automated scripts.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Backup_Procedure.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Backup_Procedure.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Recovery</span>
-          <h3>Disaster Recovery Plan</h3>
-          <p>RTO metrics, crash recovery, database schema recreation and node restoration.</p>
+        <div class="doc-card" data-title="disaster recovery plan rto metrics failover" data-desc="rto metrics crash recovery database schema recreation and node restoration">
+          <div>
+            <span class="badge">Recovery</span>
+            <h3>Disaster Recovery Plan</h3>
+            <p>RTO metrics, crash recovery, database schema recreation and node restoration.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/disaster_recovery_plan.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/disaster_recovery_plan.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Orchestration</span>
-          <h3>Distributed Deployment</h3>
-          <p>Full deployment walkthrough starting from a fresh PC with git access.</p>
+        <div class="doc-card" data-title="distributed deployment walkthrough repo pull" data-desc="full deployment walkthrough starting from a fresh pc with git access">
+          <div>
+            <span class="badge">Orchestration</span>
+            <h3>Distributed Deployment</h3>
+            <p>Full deployment walkthrough starting from a fresh PC with git access.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/distributed_deployment.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/distributed_deployment.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Control</span>
-          <h3>Start & Stop Procedures</h3>
-          <p>Startup/shutdown sequences, restarting individual services and checking logs.</p>
+        <div class="doc-card" data-title="start stop procedures container sequence controls" data-desc="startup shutdown sequences restarting individual services and checking logs">
+          <div>
+            <span class="badge">Control</span>
+            <h3>Start & Stop Procedures</h3>
+            <p>Startup/shutdown sequences, restarting individual services and checking logs.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Start_Stop_Procedures.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Start_Stop_Procedures.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Cleanup</span>
-          <h3>Uninstall Guide</h3>
-          <p>De-provisioning sequences, unsetting git filters, removing WSL and pruning volumes.</p>
+        <div class="doc-card" data-title="uninstall guide deprovisioning sequences wsl pruning" data-desc="de provisioning sequences unsetting git filters removing wsl and pruning volumes">
+          <div>
+            <span class="badge">Cleanup</span>
+            <h3>Uninstall Guide</h3>
+            <p>De-provisioning sequences, unsetting git filters, removing WSL and pruning volumes.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Uninstall_Guide.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Uninstall_Guide.pdf" class="btn">View Document</a>
       </div>
-    </div>
+    </section>
 
-    <h2 class="section-title">📊 Alerting & Monitoring Configuration</h2>
-    <div class="grid-container">
-      <div class="doc-card">
-        <div>
-          <span class="badge">Config</span>
-          <h3>Webhook & Email Settings</h3>
-          <p>How to change Discord/Teams webhooks, email destinations, and toggle alert routes.</p>
+    <section id="monitoring">
+      <h2 class="section-title">📊 Alerting & Monitoring Configuration</h2>
+      <div class="grid-container">
+        <div class="doc-card" data-title="webhook email settings alert routing flags discord teams" data-desc="how to change discord teams webhooks email destinations and toggle alert routes">
+          <div>
+            <span class="badge">Config</span>
+            <h3>Webhook & Email Settings</h3>
+            <p>How to change Discord/Teams webhooks, email destinations, and toggle alert routes.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/How_to_change_webhooks_and_emails.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/How_to_change_webhooks_and_emails.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Monitoring</span>
-          <h3>Zabbix Telemetry Setup</h3>
-          <p>Custom active traps setup, trigger thresholds and SNMP alert rules.</p>
+        <div class="doc-card" data-title="zabbix telemetry setup trappers alarms thresholds" data-desc="custom active traps setup trigger thresholds and snmp alert rules">
+          <div>
+            <span class="badge">Monitoring</span>
+            <h3>Zabbix Telemetry Setup</h3>
+            <p>Custom active traps setup, trigger thresholds and SNMP alert rules.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/zabbix_monitoring.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/zabbix_monitoring.pdf" class="btn">View Document</a>
-      </div>
-      <div class="doc-card">
-        <div>
-          <span class="badge">Debugging</span>
-          <h3>Logs Information Guide</h3>
-          <p>Where logs are written, extraction commands, and scheduling cron status checks.</p>
+        <div class="doc-card" data-title="logs information guide diagnostic extractions cron" data-desc="where logs are written extraction commands and scheduling cron status checks">
+          <div>
+            <span class="badge">Debugging</span>
+            <h3>Logs Information Guide</h3>
+            <p>Where logs are written, extraction commands, and scheduling cron status checks.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Logs_information.pdf" class="btn">View PDF</a>
+          </div>
         </div>
-        <a href="docs/Logs_information.pdf" class="btn">View Document</a>
+        <div class="doc-card" data-title="project submission requirements deadlines quality grading" data-desc="criteria validation checks quality checklists candidates and metadata lists">
+          <div>
+            <span class="badge">Evaluation</span>
+            <h3>Submission Requirements</h3>
+            <p>Criteria validation checks, quality checklists, candidates and academic grading tables.</p>
+          </div>
+          <div class="btn-group">
+            <a href="docs/Submission_Requirements.pdf" class="btn">View PDF</a>
+            <a href="docs/Submission_Requirements.docx" class="btn btn-accent">Word DOCX</a>
+          </div>
+        </div>
+        <div class="doc-card" data-title="main project readme git commands pipelines configuration guides" data-desc="master index technology stack automation and deployment parameters list">
+          <div>
+            <span class="badge">Index</span>
+            <h3>Master Readme Specification</h3>
+            <p>Master index, technology stack, automation pipelines, and deployment parameters list.</p>
+          </div>
+          <div class="btn-group">
+            <a href="Readme.pdf" class="btn">View PDF</a>
+            <a href="Readme.docx" class="btn btn-accent">Word DOCX</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </main>
+
+  <script>
+    // Live filter search function
+    function filterManuals(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.doc-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const desc = card.getAttribute('data-desc') || '';
+        
+        if (title.includes(q) || desc.includes(q)) {
+          card.classList.remove('fade-out');
+          visibleCount++;
+        } else {
+          card.classList.add('fade-out');
+        }
+      });
+
+      // Update counter dynamically
+      document.getElementById('doc-counter').innerText = visibleCount;
+    }
+
+    // Nav-link highlight function
+    function setActiveLink(element) {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+
+    // Scroll highlights nav link
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+      let currentSectionId = '';
+
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 150;
+        const height = sec.offsetHeight;
+        if (window.scrollY >= top && window.scrollY < top + height) {
+          currentSectionId = sec.getAttribute('id');
+        }
+      });
+
+      if (currentSectionId) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href').substring(1) === currentSectionId) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

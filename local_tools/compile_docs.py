@@ -166,8 +166,29 @@ class PDFCompiler:
             # Code block toggles
             if stripped.startswith("```"):
                 if in_code_block:
-                    # End code block
-                    code_text = "\n".join(code_lines)
+                    # End code block - Wrap long lines to prevent PDF overflow
+                    wrapped_code_lines = []
+                    for cl in code_lines:
+                        if len(cl) > 75:
+                            indent_len = len(cl) - len(cl.lstrip())
+                            indent_str = cl[:indent_len]
+                            content = cl[indent_len:]
+                            limit = 75 - indent_len
+                            if limit <= 10:
+                                limit = 75
+                                indent_str = ""
+                                content = cl
+                            import textwrap
+                            wrapped = textwrap.wrap(content, width=limit, break_long_words=True, break_on_hyphens=False)
+                            if wrapped:
+                                wrapped_code_lines.append(indent_str + wrapped[0])
+                                for w in wrapped[1:]:
+                                    wrapped_code_lines.append(indent_str + "    " + w)
+                            else:
+                                wrapped_code_lines.append(cl)
+                        else:
+                            wrapped_code_lines.append(cl)
+                    code_text = "\n".join(wrapped_code_lines)
                     flowables.append(Preformatted(clean_text(code_text), code_style))
                     code_lines = []
                     in_code_block = False
@@ -221,7 +242,9 @@ class PDFCompiler:
                     ('BOTTOMPADDING', (0,0), (-1,-1), 6),
                 ])
                 
-                t = Table([wrapped_cells], colWidths=[150, 200, 150][:len(cells)])
+                col_width = 504.0 / max(1, len(cells))
+                colWidths = [col_width] * len(cells)
+                t = Table([wrapped_cells], colWidths=colWidths)
                 t.setStyle(table_style)
                 flowables.append(t)
                 flowables.append(Spacer(1, 6))
@@ -360,6 +383,144 @@ class PDFCompiler:
                     self.index_map[keyword].add(page_num + 1)
         doc.close()
 
+def compile_to_docx(md_path, docx_path):
+    import docx
+    from docx.shared import Inches, Pt, RGBColor
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    
+    doc = docx.Document()
+    
+    # Page setup - 1 inch margins
+    for section in doc.sections:
+        section.top_margin = Inches(1)
+        section.bottom_margin = Inches(1)
+        section.left_margin = Inches(1)
+        section.right_margin = Inches(1)
+        
+    doc_title = os.path.splitext(os.path.basename(md_path))[0].replace("_", " ").title()
+    
+    # Title heading
+    title_p = doc.add_paragraph()
+    title_run = title_p.add_run(doc_title)
+    title_run.font.name = 'Arial'
+    title_run.font.size = Pt(24)
+    title_run.font.bold = True
+    title_run.font.color.rgb = RGBColor(0x1A, 0x36, 0x5D) # Dark navy
+    title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title_p.paragraph_format.space_after = Pt(24)
+    
+    with open(md_path, 'r', encoding='utf-8', errors='ignore') as f:
+        content = f.read()
+        
+    lines = content.split('\n')
+    filtered_lines = [l for l in lines if not l.startswith('#ident') and not '#ident' in l]
+    
+    in_code = False
+    code_lines = []
+    
+    for line in filtered_lines:
+        stripped = line.strip()
+        
+        # Code block toggle
+        if stripped.startswith("```"):
+            if in_code:
+                # End code block - add as formatted pre text
+                code_text = "\n".join(code_lines)
+                p = doc.add_paragraph()
+                p.paragraph_format.left_indent = Inches(0.5)
+                p.paragraph_format.space_after = Pt(10)
+                run = p.add_run(code_text)
+                run.font.name = 'Consolas'
+                run.font.size = Pt(8.5)
+                run.font.color.rgb = RGBColor(0x2D, 0x37, 0x48)
+                code_lines = []
+                in_code = False
+            else:
+                in_code = True
+            continue
+            
+        if in_code:
+            code_lines.append(line)
+            continue
+            
+        # Headings
+        if stripped.startswith("# "):
+            p = doc.add_paragraph()
+            run = p.add_run(stripped[2:])
+            run.font.name = 'Arial'
+            run.font.size = Pt(18)
+            run.font.bold = True
+            run.font.color.rgb = RGBColor(0x1A, 0x36, 0x5D)
+            p.paragraph_format.space_before = Pt(18)
+            p.paragraph_format.space_after = Pt(8)
+            
+        elif stripped.startswith("## "):
+            p = doc.add_paragraph()
+            run = p.add_run(stripped[3:])
+            run.font.name = 'Arial'
+            run.font.size = Pt(14)
+            run.font.bold = True
+            run.font.color.rgb = RGBColor(0x2B, 0x6C, 0xB0)
+            p.paragraph_format.space_before = Pt(14)
+            p.paragraph_format.space_after = Pt(6)
+            
+        elif stripped.startswith("### "):
+            p = doc.add_paragraph()
+            run = p.add_run(stripped[4:])
+            run.font.name = 'Arial'
+            run.font.size = Pt(12)
+            run.font.bold = True
+            run.font.color.rgb = RGBColor(0x2B, 0x6C, 0xB0)
+            p.paragraph_format.space_before = Pt(12)
+            p.paragraph_format.space_after = Pt(4)
+            
+        # Lists
+        elif stripped.startswith("- ") or stripped.startswith("* "):
+            p = doc.add_paragraph(style='List Bullet')
+            run = p.add_run(stripped[2:])
+            run.font.name = 'Arial'
+            run.font.size = Pt(10)
+            p.paragraph_format.space_after = Pt(4)
+            
+        # Tables
+        elif stripped.startswith("|") and stripped.endswith("|"):
+            if "---" in stripped:
+                continue
+            cells = [c.strip() for c in stripped.split("|")[1:-1]]
+            
+            table = None
+            if len(doc.element.body) > 0 and doc.element.body[-1].tag.endswith('tbl'):
+                table = doc.tables[-1]
+                row = table.add_row()
+            else:
+                table = doc.add_table(rows=1, cols=len(cells))
+                table.style = 'Light Shading Accent 1'
+                row = table.rows[0]
+                
+            for idx, cell_val in enumerate(cells):
+                cell = row.cells[idx]
+                cell.text = cell_val
+                for p in cell.paragraphs:
+                    p.paragraph_format.space_after = Pt(2)
+                    p.paragraph_format.space_before = Pt(2)
+                    for r in p.runs:
+                        r.font.name = 'Arial'
+                        r.font.size = Pt(9.5)
+                        
+        elif not stripped:
+            p = doc.add_paragraph()
+            p.paragraph_format.space_after = Pt(6)
+            
+        else:
+            p = doc.add_paragraph()
+            run = p.add_run(stripped)
+            run.font.name = 'Arial'
+            run.font.size = Pt(10)
+            p.paragraph_format.space_after = Pt(6)
+            
+    doc.save(docx_path)
+    print(f"[SUCCESS] Created DOCX: {docx_path}")
+
 def compile_all_documents():
     workspace = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     docs_dir = os.path.join(workspace, "docs")
@@ -432,6 +593,29 @@ def compile_all_documents():
             print(f"[ERROR] Failed to compile {md_rel}: {e}")
 
     print("[SUCCESS] PDF compilation sequence completed!")
+
+    print("Starting compilation of Word DOCX documents...")
+    docx_mappings = {
+        "docs/Submission_Requirements.md": "docs/Submission_Requirements.docx",
+        "README.md": "Readme.docx"
+    }
+    for md_rel, docx_rel in docx_mappings.items():
+        md_abs = os.path.join(workspace, md_rel.replace("/", os.sep))
+        docx_abs = os.path.join(workspace, docx_rel.replace("/", os.sep))
+        
+        if not os.path.exists(md_abs):
+            fallback_abs = os.path.join(docs_dir, os.path.basename(md_abs))
+            if os.path.exists(fallback_abs):
+                md_abs = fallback_abs
+            else:
+                print(f"[WARNING] Source file not found for DOCX: {md_rel} (skipping)")
+                continue
+
+        try:
+            compile_to_docx(md_abs, docx_abs)
+        except Exception as e:
+            print(f"[ERROR] Failed to compile DOCX {md_rel}: {e}")
+    print("[SUCCESS] DOCX compilation sequence completed!")
 
 if __name__ == "__main__":
     compile_all_documents()
