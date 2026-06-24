@@ -46,8 +46,8 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - _AIRFLOW_DB_UPGRADE=true
       - _AIRFLOW_WWW_USER_CREATE=true
-      - _AIRFLOW_WWW_USER_USERNAME=admin
-      - _AIRFLOW_WWW_USER_PASSWORD=admin
+      - _AIRFLOW_WWW_USER_USERNAME=${AIRFLOW_USER}
+      - _AIRFLOW_WWW_USER_PASSWORD=${AIRFLOW_PASSWORD}
       - _PIP_ADDITIONAL_REQUIREMENTS=pymysql cryptography requests pandas mysql-connector-python python-dotenv
     command: version
     networks:

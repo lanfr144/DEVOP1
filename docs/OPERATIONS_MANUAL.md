@@ -181,7 +181,7 @@ This provisions:
 - MySQL instance with a 5Gi persistent volume claim (`mysql.yaml`).
 - Flask backend API (`backend.yaml`).
 - Airflow scheduler and webserver (`airflow.yaml`).
-- Zabbix monitoring server and web nginx portal (`zabbix.yaml`).
+- Zabbix monitoring server and web portal (`zabbix.yaml`). <!-- NGINX is built into the zabbix-web image -->
 - Jenkins Master workspace with persistent volume storage (`jenkins.yaml`).
 
 ### 8.2 Declarative CI/CD Pipelines

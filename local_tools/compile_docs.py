@@ -494,7 +494,7 @@ def compile_to_docx(md_path, docx_path):
                 row = table.add_row()
             else:
                 table = doc.add_table(rows=1, cols=len(cells))
-                table.style = 'Light Shading Accent 1'
+                table.style = 'Table Grid'
                 row = table.rows[0]
                 
             for idx, cell_val in enumerate(cells):
