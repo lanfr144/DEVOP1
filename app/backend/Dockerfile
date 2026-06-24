@@ -15,7 +15,7 @@ WORKDIR /app
 
 # Update packages and install system services: cron (recurring tasks) and at (one-shot tasks)
 # Clean package list afterwards to minimize image size
-RUN apt-get update && apt-get install -y cron at && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y cron at zip unzip && rm -rf /var/lib/apt/lists/*
 
 # Copy python dependencies file first to utilize Docker build layer caching
 COPY requirements.txt .
@@ -29,4 +29,4 @@ COPY . .
 # Expose port 5000 to the container network for Flask routing
 EXPOSE 5000
 
-CMD printf "7,37 * * * * /usr/local/bin/python /app/XAU/get_gold_price.py >> /app/logs/xau_cron.log 2>&1\n10,40 * * * * /usr/local/bin/python /app/XAU/load_xau.py >> /app/logs/xau_cron.log 2>&1\n" | crontab - && service cron start && service atd start && python app.py
+CMD printf "7,37 * * * * /usr/local/bin/python /app/XAU/get_gold_price.py >> /app/logs/xau_cron.log 2>&1\n10,40 * * * * /usr/local/bin/python /app/XAU/load_xau.py >> /app/logs/xau_cron.log 2>&1\n19 * * * * /bin/bash /app/XAU/clean_xau.sh /app/XAU >> /app/logs/xau_cron.log 2>&1\n" | crontab - && service cron start && service atd start && python app.py
