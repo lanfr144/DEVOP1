@@ -25,6 +25,9 @@ spec:
 '''
         }
     }
+    triggers {
+        pollSCM('H/2 * * * *')
+    }
     stages {
         stage('Pull Code') {
             steps {
