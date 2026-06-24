@@ -44,6 +44,9 @@ spec:
             }
         }
         stage('Deploy to Kubernetes') {
+            when {
+                branch 'production'
+            }
             steps {
                 container('kubectl') {
                     sh 'kubectl apply -f kubernetes/manifests/'

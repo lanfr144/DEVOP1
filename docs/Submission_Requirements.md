@@ -71,7 +71,7 @@ The containerized environment will allow developers to work in isolated environm
 ### Task 1 - Docker Installation & Setup
 
 Install Docker Engine on Linux or Windows.
-Configure Docker daemon and test with sample containers (hello-world, nginx).
+Configure Docker daemon and test with sample containers (hello-world). <!-- Removed nginx test reference -->
 ### Task 2 - Creating Dockerfiles
 
 Write Dockerfiles for each service (e.g., Node.js/Flask backend, React frontend, PostgreSQL/MySQL database).
@@ -144,7 +144,7 @@ Expose ports and define CMD or ENTRYPOINT
 ### Task 3 - Add a Frontend or Static UI
 
 Optionally include a separate Dockerfile for the frontend (e.g., built with React).
-Serve static files via NGINX or embed the frontend in the backend container.
+<!-- Serve static files via NGINX or --> embed the frontend in the backend container.
 ### Task 4 - Use Docker Compose for Orchestration
 
 Create a docker-compose.yml file to define and run:
