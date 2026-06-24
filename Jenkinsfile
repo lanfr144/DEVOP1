@@ -57,4 +57,25 @@ spec:
             }
         }
     }
+    post {
+        success {
+            echo "==========================================================="
+            echo "✅ SUCCESS: Pipeline executed without errors."
+            echo "📦 BRANCH: ${env.BRANCH_NAME}"
+            echo "🛠️ BUILD_NUMBER: ${env.BUILD_NUMBER}"
+            echo "🚀 STATUS: Changes have been successfully built and applied."
+            echo "==========================================================="
+        }
+        failure {
+            echo "==========================================================="
+            echo "❌ FAILURE: Pipeline execution encountered an error!"
+            echo "📦 BRANCH: ${env.BRANCH_NAME}"
+            echo "🛠️ BUILD_NUMBER: ${env.BUILD_NUMBER}"
+            echo "⚠️ STATUS: Changes were NOT applied. Please check the logs."
+            echo "==========================================================="
+        }
+        always {
+            echo "ℹ️ Jenkins Pipeline run is complete."
+        }
+    }
 }
