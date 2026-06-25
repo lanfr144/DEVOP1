@@ -534,6 +534,7 @@ def compile_all_documents():
         "persona-template.md": "persona-template.pdf",
         "User stories.md": "User stories.pdf",
         "Wireframes.md": "Wireframes.pdf",
+        "Presentation_Guide.md": "Presentation_Guide.pdf",
         
         # Docs level
         "docs/architecture.md": "docs/architecture.pdf",
